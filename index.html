@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <title>Achats</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="standard.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="achats.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="dialogbox.css" />
+</head>
+<body>
+  <div id="ecran-blanc" class="invisible"></div>
+  <div id="commandes">
+    <button id="btverifier" type="button" class="btcommande" disabled onclick="verification()">Vérifier</button>
+    <button id="btniveau" type="button" class="btcommande" disabled onclick="choixNiveau()">Choisir un niveau</button>
+  </div>
+  <div id="zone-action">
+    <div id="zone-gauche">
+      <div id="consigne">
+        <div class="consigne titre-consigne">Consignes</div>
+        <div class="consigne">Place pièces et billets sur le comptoir afin de payer le prix de l'objet.<br/>Pièces ou billets peuvent être enlevés du comptoir par un clic droit.</div>
+        </div>
+      <div id="reserve"></div>
+    </div>
+    <div id="zone-droite">
+      <div id="zone-objets">
+        <div id="nom-objet"></div>
+        <div id="image-objet"></div>
+        <div id="prix-objet"></div>
+      </div>
+      <div id="receptacle" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    </div>
+  </div>
+  <div id="choix-niveau" class="invisible">
+    <div id="formulaire">
+      <form name="form-niveau" id="form-niveau" action="index.html" onsubmit="lanceNiveau(event);">
+        <p class="titre">Choisis un niveau de difficulté :</p>
+        <p><input type="radio" name="niveau" value="0" id="niveau1" checked /> <label for="niveau1">Prix ronds en euros ou en centimes.</label></p>
+        <p><input type="radio" name="niveau" value="1" id="niveau2" /> <label for="niveau2">Prix en euros et centimes.</label></p>
+        <p class="centre"><button type="submit" class="btcommande">Valider</button></p>
+      </form>
+    </div>
+  </div>
+
+ <!-- <div id="informations"></div> -->
+
+  <script src="dialogbox.js" type="text/javascript"></script>
+  <script src="achats.js" type="text/javascript"></script>
+</body>
+</html>

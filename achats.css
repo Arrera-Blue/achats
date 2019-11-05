@@ -1,0 +1,251 @@
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  height:100%;
+  margin:0;
+  padding:0;
+  font-family: "Arial", "Helvetica", sans-serif;
+  -webkit-user-select: none;
+}
+
+#ecran-blanc{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: #fefefe;
+  opacity: 0.5;
+  z-index: 9999;
+}
+
+#commandes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+  text-align: center;
+  /* background-color: #CCC952; */
+  background-color: #e0d181;
+  box-sizing: border-box;
+  border-color: white;
+  border-style: solid;
+  border-top-width: 10px;
+  border-left-width: 10px;
+  border-right-width: 10px;
+  border-bottom-width: 5px;
+}
+
+#zone-action {
+  display: flex;
+  height: 90%;
+  width: 100%;
+}
+
+#zone-gauche {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+#reserve {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+  width: 100%;
+  background-color: #005384;
+  box-sizing: border-box;
+  border-color: white;
+  border-style: solid;
+  border-top-width: 5px;
+  border-left-width: 10px;
+  border-right-width: 5px;
+  border-bottom-width: 10px;
+}
+
+#consigne {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 20%;
+  background-color: #86c9da;
+  box-sizing: border-box;
+  border-color: white;
+  border-style: solid;
+  border-top-width: 5px;
+  border-left-width: 10px;
+  border-right-width: 5px;
+  border-bottom-width: 5px;
+  padding: 10px;
+}
+
+.titre-consigne {
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 2vmin;
+}
+
+#zone-droite {
+  height: 100%;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+#zone-objets {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;;
+  height: 30%;
+  width: 100%;
+  box-sizing: border-box;
+  border-color: white;
+  border-style: solid;
+  border-top-width: 5px;
+  border-left-width: 5px;
+  border-right-width: 10px;
+  border-bottom-width: 5px;
+  background-color: #86c9da;
+}
+
+#receptacle {
+	display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+	height: 70%;
+  width: 100%;
+  background-color: #86c9da;
+  background-image: url(img/prairie3.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  box-sizing: border-box;
+  border-color: white;
+  border-style: solid;
+  border-top-width: 5px;
+  border-left-width: 5px;
+  border-right-width: 10px;
+  border-bottom-width: 10px;
+}
+
+#choix-niveau {
+  z-index: 99999;
+  height: 50%;
+  width: 35%;
+  min-width: 200px;
+  position: fixed;
+  left: 35%;
+  top: 25%;
+  justify-content: center;
+  align-items: center;
+}
+
+#formulaire {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  border: solid black 1px;
+  background-color:#ffe2cd;
+  padding: 0 2% 2% 2%;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5), 0 6px 20px 0 rgba(0,0,0,0.2);
+}
+
+.btform {
+  text-align: center;
+}
+
+.titre {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.draggable {
+  /* display: flex; */
+  width: 20%;
+  /* max-height: 188px;
+  max-width: 159px; */
+  margin-right: 2%;
+}
+
+.draggable:hover {
+  cursor: pointer;
+}
+
+.invisible {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.centre {
+  text-align: center;
+}
+
+.tooltip {
+  position: absolute;
+  background: #646464;
+  border-radius:4px;
+  padding: 6px 12px;
+  font-family: arial;
+  font-size: 12px;
+  text-shadow: 0px 1px 1px #000;
+  color: white;
+  z-index: 9999;
+}
+
+.tooltip:before {
+  content : " ";
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #646464;
+  position:absolute;
+  bottom:-5px;
+  left:5px;
+}
+
+@media screen and (max-aspect-ratio: 14/11)  {
+  .div-texte {
+    top: 56%;
+  }
+}
+@media screen and (max-aspect-ratio: 34/43)  {
+  .div-texte {
+    top: 54%;
+  }
+}
+@media screen and (min-aspect-ratio: 13/6)  {
+  .div-texte {
+    font-size: 3vmin;
+    height: 4vmin;
+  }
+}
+@media screen and (min-aspect-ratio: 23/6)  {
+  #consigne {
+    display: none;
+  }
+  #locomotive {
+    width: 10.3%;
+  }
+  .draggable {
+    width: 8%;
+  }
+  .espace {
+    width: 0.86%
+  }
+}

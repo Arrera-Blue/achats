@@ -1,0 +1,74 @@
+#ecran-blanc{
+    /* display: none; */
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: #fefefe;
+    /* opacity: 0.7; */
+    z-index: 9999;
+}
+
+#dlg-box{
+    /*initially dialog box is hidden*/
+    /* display: none; */
+    position: fixed;
+    z-index: 9999;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    border: 1px solid black;
+    box-shadow: 8px 8px 12px #aaa;
+}
+
+#dlg-body {
+    display: flex;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+#dlg-image {
+    background-size: contain;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dlg-image img {
+    width: 100%;
+    height: auto;
+}
+
+#dlg-texte {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#dlg-texte p {
+    margin-top: 10px;
+}
+
+#dlg-box img {
+    vertical-align: middle;
+    margin: 5px;
+}
+
+#dlg-footer{
+    background-color: #f2f2f2;
+    text-align: right;
+    padding: 10px;
+}
+
+#dlg-footer button{
+    background-color: #6d84b4;
+    float: right;
+    color: white;
+    padding: 5px;
+    border: 0px;
+}
