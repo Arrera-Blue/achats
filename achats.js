@@ -276,6 +276,7 @@ function videReceptacle() {
     receptacle.removeChild(receptacle.firstChild);
   }
   paramReceptacle.proposition = 0;
+  paramReceptacle.ctPropositions = 0;
 }
 
 
@@ -315,15 +316,16 @@ function verification() {
   let i;
   let message = "<p>Malheureusement, ce n\'est toujours pas le bon montant.</p>";
   if (paramReceptacle.proposition !== paramExercice.solution) {
-    if (paramReceptacle.ctPropositions = 0) {
+    if (paramReceptacle.ctPropositions === 0) {
       showDialog('<p>Malheureusement, le montant de ce qui est sur le comptoir ne correspond pas au prix affiché.');
+      paramReceptacle.ctPropositions += 1;
     }
     else {
       if (paramReceptacle.proposition > paramExercice.solution) {
         message = message + "<p>Tu as placé trop d'argent sur le comptoir</p>";
       }
       else {
-        message = message + "<p>Tu n'as pas placé assez s'argent sur le comptoir.</p>";
+        message = message + "<p>Tu n'as pas placé assez d'argent sur le comptoir.</p>";
       }
       showDialog(message);
     }
@@ -381,13 +383,13 @@ function finSurvol(ev) {
 function drop(ev) {
   ev.preventDefault();
   const idObjet  = getIdObjet(ev.dataTransfer.getData('Text'));
-  const idParent = getIdParent(ev.dataTransfer.getData('Text'));
+  // const idParent = getIdParent(ev.dataTransfer.getData('Text'));
   const objet = document.getElementById(idObjet);
   if (ev.target.id === "receptacle") {  // L'élément est lâché sur une zone libre du réceptacle
       // ev.target.appendChild(nouvelEspace(idObjet));
       let nodeCopy = objet.cloneNode(true);
       nodeCopy.title = objet.id.replace("_"," ");
-      nodeCopy.id = objet.id + paramReceptacle.ctId;
+      nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
       calculeSomme(objet.id,"ajout");
       paramReceptacle.ctId += 1;
       nodeCopy.addEventListener('mouseover', createTip);
