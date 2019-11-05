@@ -20,36 +20,38 @@ const monnaie = [
 const objets = [
   [  // Objets du niveau 1
     [
-      {nom: "un CD", image: "img/cd.jpg", prix: 1500 , affichage: "15 €"},
-      {nom: "une baguette de pain", image: "img/baguette.png", prix: 90 , affichage: "90 cts"},
-      {nom: "un ballon", image: "img/ballon.png", prix: 400 , affichage: "4 €"},
+      {nom: "un CD", image: "img/cd.jpg", prix: 1500, affichage: "15 €"},
+      {nom: "une baguette de pain", image: "img/baguette.png", prix: 92, affichage: "92 cts"},
+      {nom: "un ballon", image: "img/ballon.png", prix: 400, affichage: "4 €"},
+      {nom: "une veste polaire de randonnée", image: "img/polaire.png", prix: 3700, affichage: "37 €"},
+      {nom: "un sac à colorier", image: "img/sac-colorier.png", prix: 56, affichage: "56 cts"},
     ],
     [
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
+      {nom: "une télévision 100 cm", image: "img/tv.png", prix: 22900, affichage: "229 €"},
+      {nom: "1 L de lait", image: "img/lait.png", prix: 94, affichage: "94 cts"},
+      {nom: "un timbre lettre verte", image: "img/timbre.png", prix: 88, affichage: "88 cts"},
     ],
     [
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
+      {nom: "un stylo ballon de foot", image: "img/stylo.png", prix: 59, affichage: "59 cts"},
+      {nom: "une épingle à tête de fleur", image: "img/epingle.png", prix: 37, affichage: "37 cts"},
+      {nom: "", image: "", prix: 0, affichage: ""},
     ]
   ],
   [  // Objets du niveau 2
     [
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
     ],
     [
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
     ],
     [
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
-      {nom: "", image: "", prix: 0 , affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "", image: "", prix: 0, affichage: ""},
     ]
   ]
 ]
@@ -68,23 +70,13 @@ const paramExercice = {
   solution: 0
 }
 
-/* const paramPositionnement = {
-  dernierSurvol: {},
-  ctEspaces: 0,
-  espaceWidth: "1.07%",
-  coefEspaceWidth: 0.01,
-  image: "url(img/attache3.png)"
-} */
-
 var paramReceptacle = {
   ctId: 0,
   proposition: 0,
   ctPropositions: 0
 }
 
-var pieceBillet =  [];
-// var boutons = [];
-
+// var pieceBillet =  [];
 
 const reserve =  document.getElementById("reserve");
 const zoneObjets =  document.getElementById("zone-objets");
@@ -138,6 +130,7 @@ function cancelTip(ev) {
 
 function creeReserveMonnaie() {
   let i = 0;
+  let pieceBillet =  [];
   for (i=0; i<14; i++) {
     pieceBillet[i] = new Image();
     pieceBillet[i].className = "draggable";
@@ -208,8 +201,11 @@ function defSerie() {
     tableau[i] = i;
   }
   paramExercice.ordreObjets = melange(tableau);
+  paramExercice.ctObjets = 0;
+  afficheObjet();
+  document.getElementById("btverifier").disabled = false;
   desactiveBtSeries();
-  commencer();
+  // commencer();
 }
 
 function getIdObjet(infosObjet) {
@@ -217,19 +213,19 @@ function getIdObjet(infosObjet) {
   return tableau[0];
 }
 
-function getIdParent(infosObjet) {
+/* function getIdParent(infosObjet) {
   let tableau = infosObjet.split("-");
   return tableau[1];
-}
+} */
 
-function  reinitialise() {
+/* function  reinitialise() {
   let i;
   activeBtSeries();
   effaceObjet();
   videReceptacle();
   paramSeries.numeroSerie = 0;
   paramExercice.ctObjets = 0;
-}
+} */
 
 function choixNiveau() {
   document.getElementById("choix-niveau").className = "visible";
@@ -237,6 +233,7 @@ function choixNiveau() {
 
 function lanceNiveau(ev) {
   let i;
+  videBtSeries();
   const listeNiveaux = document.getElementsByName('niveau');
   for(i = 0; i < listeNiveaux.length; i++){
     if (listeNiveaux[i].checked) {
@@ -254,11 +251,6 @@ function effaceObjet() {
   document.getElementById("nom-objet").innerHTML = "";
   document.getElementById("prix-objet").innerHTML = "";
   document.getElementById("image-objet").removeChild(document.getElementById("image-achat"));
-  /* for (i = 0; i < objets.length; i++) {
-    if (achats[i].className === "achat") {
-      zoneObjets.remove(objets[i]);
-    }
-  } */
 }
 
 function afficheObjet() {
@@ -278,7 +270,6 @@ function videReceptacle() {
   paramReceptacle.proposition = 0;
   paramReceptacle.ctPropositions = 0;
 }
-
 
 function effacePieceBillet(ev) {
   if (ev.which==3) {
@@ -307,11 +298,11 @@ function calculeSomme(idObjet,operation) {
   }
 }
 
-function commencer() {
+/* function commencer() {
   afficheObjet();
   document.getElementById("btverifier").disabled = false;
 }
-
+ */
 function verification() {
   let i;
   let message = "<p>Malheureusement, ce n\'est toujours pas le bon montant.</p>";
@@ -343,7 +334,7 @@ function verification() {
     else {
       paramExercice.ctObjets = 0;
       document.getElementById("btverifier").disabled = true;
-      paramSeries.niveau = -1;
+      // paramSeries.niveau = -1;
       document.getElementById("btniveau").disabled = false;
       if (paramSeries.seriesFaites.length < paramSeries.nbSeries) {
         showDialog("<p>Félicitations !</p><p>Tu as correctement payé tous les objets de cette série.</p>",0.5,'img/trophee.png', 128, 128, 'left');
@@ -368,18 +359,6 @@ function drag(ev) {
   ev.dataTransfer.setData("text", infosObjet);
 }
 
-/* function auSurvol(ev) {
-  ev.preventDefault();
-  if (ev.target === paramPositionnement.dernierSurvol) {return;} // Evite de boucler l'opération tant que l'on reste sur la même zone
-  ev.target.className = "espace-large";
-  paramPositionnement.dernierSurvol = ev.target;
-}
-
-function finSurvol(ev) {
-  ev.target.className = "espace";
-  paramPositionnement.dernierSurvol = null;
-} */
-
 function drop(ev) {
   ev.preventDefault();
   const idObjet  = getIdObjet(ev.dataTransfer.getData('Text'));
@@ -401,4 +380,3 @@ function drop(ev) {
 
 choixNiveau();
 creeReserveMonnaie();
-// creeBtSeries();
