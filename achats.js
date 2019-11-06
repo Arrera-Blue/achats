@@ -20,21 +20,25 @@ const monnaie = [
 const objets = [
   [  // Objets du niveau 1
     [
-      {nom: "un CD", image: "img/cd.jpg", prix: 1500, affichage: "15 €"},
-      {nom: "une baguette de pain", image: "img/baguette.png", prix: 92, affichage: "92 cts"},
-      {nom: "un ballon", image: "img/ballon.png", prix: 400, affichage: "4 €"},
-      {nom: "une veste polaire de randonnée", image: "img/polaire.png", prix: 3700, affichage: "37 €"},
-      {nom: "un sac à colorier", image: "img/sac-colorier.png", prix: 56, affichage: "56 cts"},
+      {nom: "un CD", image: "img/cd.jpg", prix: 1500, affichage: "15 €", imgWidth: "132px", imgHeight: "132px"},
+      {nom: "une baguette de pain", image: "img/baguette.png", prix: 92, affichage: "92 cts", imgWidth: "200px", imgHeight: "36px"},
+      {nom: "un ballon", image: "img/ballon.png", prix: 400, affichage: "4 €", imgWidth: "132px", imgHeight: "132px"},
+      {nom: "une veste polaire de randonnée", image: "img/polaire.png", prix: 3700, affichage: "37 €", imgWidth: "132px", imgHeight: "150px"},
+      {nom: "un sac à colorier", image: "img/sac-colorier.png", prix: 56, affichage: "56 cts", imgWidth: "132px", imgHeight: "179px"},
     ],
     [
-      {nom: "une télévision 100 cm", image: "img/tv.png", prix: 22900, affichage: "229 €"},
-      {nom: "1 L de lait", image: "img/lait.png", prix: 94, affichage: "94 cts"},
-      {nom: "un timbre lettre verte", image: "img/timbre.png", prix: 88, affichage: "88 cts"},
+      {nom: "une télévision 100 cm", image: "img/tv.png", prix: 22900, affichage: "229 €", imgWidth: "204px", imgHeight: "132px"},
+      {nom: "1 L de lait", image: "img/lait.png", prix: 94, affichage: "94 cts", imgWidth: "80px", imgHeight: "181px"},
+      {nom: "circuit de course électrique", image: "img/circuit.png", prix: 4300, affichage: "43 €", imgWidth: "172px", imgHeight: "132px"},
+      {nom: "un timbre lettre verte", image: "img/timbre.png", prix: 88, affichage: "88 cts", imgWidth: "102px", imgHeight: "132px"},
+      {nom: "une cocotte en fonte", image: "img/cocotte.png", prix: 14300, affichage: "143 €", imgWidth: "198px", imgHeight: "132px"},
     ],
     [
-      {nom: "un stylo ballon de foot", image: "img/stylo.png", prix: 59, affichage: "59 cts"},
-      {nom: "une épingle à tête de fleur", image: "img/epingle.png", prix: 37, affichage: "37 cts"},
-      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "un stylo ballon de foot", image: "img/stylo.png", prix: 59, affichage: "59 cts", imgWidth: "26px", imgHeight: "200px"},
+      {nom: "une paire de chaussures", image: "img/chaussures.png", prix: 6300, affichage: "63 €", imgWidth: "167px", imgHeight: "64px"},
+      {nom: "une épingle à tête de fleur", image: "img/epingle.png", prix: 37, affichage: "37 cts", imgWidth: "43px", imgHeight: "132px"},
+      {nom: "une table de jardin", image: "img/table-jardin.png", prix: 39900, affichage: "399 €", imgWidth: "200px", imgHeight: "94px"},
+      {nom: "un bureau", image: "img/bureau.png", prix: 13900, affichage: "139 €", imgWidth: "228px", imgHeight: "132px"},
     ]
   ],
   [  // Objets du niveau 2
@@ -204,6 +208,7 @@ function defSerie() {
   paramExercice.ctObjets = 0;
   afficheObjet();
   document.getElementById("btverifier").disabled = false;
+  document.getElementById("btniveau").disabled = true;
   desactiveBtSeries();
   // commencer();
 }
@@ -258,6 +263,8 @@ function afficheObjet() {
   document.getElementById("nom-objet").innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].nom;
   imageObjet.src = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].image;
   imageObjet.id = "image-achat";
+  imageObjet.style.maxHeight = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgHeight;
+  imageObjet.style.maxWidth = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgWidth;
   document.getElementById("image-objet").appendChild(imageObjet);
   document.getElementById("prix-objet").innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].affichage;
   paramExercice.solution = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].prix;

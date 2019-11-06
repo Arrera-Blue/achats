@@ -113,7 +113,30 @@ body {
   border-left-width: 5px;
   border-right-width: 10px;
   border-bottom-width: 5px;
-  background-color: #86c9da;
+  /* background-color: #86c9da; */
+}
+
+#nom-objet {
+  width: 40%;
+  text-align: center;
+  font-size: 4vmin;
+}
+
+#image-objet {
+  height: 98%;
+  display: flex;
+  align-items: center;
+  /* text-align: center; */
+}
+
+#prix-objet {
+  width: 30%;
+  text-align: center;
+}
+
+#image-achat {
+  height: 96%;
+  /* max-width: 96%; */
 }
 
 #receptacle {
