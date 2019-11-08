@@ -361,8 +361,12 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-	let infosObjet;
-	infosObjet = ev.target.id + "-" + ev.target.parentNode.id;
+  let infosObjet;
+  // const image = ev.target;
+  const offsetX = ev.target.clientWidth * 2;
+  const offsetY = ev.target.clientHeight * 2;
+  infosObjet = ev.target.id + "-" + ev.target.parentNode.id;
+  ev.dataTransfer.setDragImage(ev.target, offsetX, offsetY);
   ev.dataTransfer.setData("text", infosObjet);
 }
 
