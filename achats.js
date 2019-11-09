@@ -254,7 +254,7 @@ function effaceObjet() {
   let i;
   // const achats = zoneObjets.children;
   document.getElementById("nom-objet").innerHTML = "";
-  document.getElementById("prix-objet").innerHTML = "";
+  document.getElementById("montant").innerHTML = "";
   document.getElementById("image-objet").removeChild(document.getElementById("image-achat"));
 }
 
@@ -266,7 +266,7 @@ function afficheObjet() {
   imageObjet.style.maxHeight = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgHeight;
   imageObjet.style.maxWidth = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgWidth;
   document.getElementById("image-objet").appendChild(imageObjet);
-  document.getElementById("prix-objet").innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].affichage;
+  document.getElementById("montant").innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].affichage;
   paramExercice.solution = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].prix;
 }
 
@@ -362,9 +362,8 @@ function allowDrop(ev) {
 
 function drag(ev) {
   let infosObjet;
-  // const image = ev.target;
-  const offsetX = ev.target.clientWidth * 2;
-  const offsetY = ev.target.clientHeight * 2;
+  const offsetX = ev.target.clientWidth;
+  const offsetY = ev.target.clientHeight;
   infosObjet = ev.target.id + "-" + ev.target.parentNode.id;
   ev.dataTransfer.setDragImage(ev.target, offsetX, offsetY);
   ev.dataTransfer.setData("text", infosObjet);

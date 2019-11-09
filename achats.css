@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'digital';
+  src: url('fonts/digital-webfont.eot');
+  src: url('fonts/digital-webfont.eot?#iefix') format('embedded-opentype'),
+       url('fonts/digital-webfont.woff2') format('woff2'),
+       url('fonts/digital-webfont.woff') format('woff'),
+       url('fonts/digital-webfont.ttf') format('truetype'),
+       url('fonts/digital-webfont.svg#digital') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html {
   height: 100%;
 }
@@ -56,6 +68,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  /* align-content: center; */
   height: 80%;
   width: 100%;
   background-color: #005384;
@@ -113,7 +126,7 @@ body {
   border-left-width: 5px;
   border-right-width: 10px;
   border-bottom-width: 5px;
-  /* background-color: #86c9da; */
+  /* background-color: #fff5d3; */
 }
 
 #nom-objet {
@@ -130,8 +143,23 @@ body {
 }
 
 #prix-objet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 30%;
+  height: 30%;
+  background-image: url(img/afficheur.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
   text-align: center;
+}
+
+#montant {
+  font-family: 'digital';
+  font-size: 4vmin;
+  color:lightyellow;
+  font-weight: bold;
 }
 
 #image-achat {
@@ -144,12 +172,14 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  align-content: center;
 	height: 70%;
   width: 100%;
-  background-color: #86c9da;
-  background-image: url(img/prairie3.jpg);
-  background-position: center;
-  background-size: cover;
+  padding: 0 5%;
+  background-color: #fff5d3;
+  background-image: url(img/comptoir.png);
+  background-position: contain;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   box-sizing: border-box;
   box-sizing: border-box;
@@ -159,6 +189,10 @@ body {
   border-left-width: 5px;
   border-right-width: 10px;
   border-bottom-width: 10px;
+}
+
+#receptacle .draggable {
+  margin-bottom: 3%;
 }
 
 #choix-niveau {
