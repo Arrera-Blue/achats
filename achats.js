@@ -20,7 +20,7 @@ const monnaie = [
 const objets = [
   [  // Objets du niveau 1
     [
-      {nom: "un CD", image: "img/cd.jpg", prix: 1500, affichage: "15 €", imgWidth: "132px", imgHeight: "132px"},
+      {nom: "un CD", image: "img/cd2.jpg", prix: 1500, affichage: "15 €", imgWidth: "132px", imgHeight: "132px"},
       {nom: "une baguette de pain", image: "img/baguette.png", prix: 92, affichage: "92 cts", imgWidth: "200px", imgHeight: "36px"},
       {nom: "un ballon", image: "img/ballon.png", prix: 400, affichage: "4 €", imgWidth: "132px", imgHeight: "132px"},
       {nom: "une veste polaire de randonnée", image: "img/polaire.png", prix: 3700, affichage: "37 €", imgWidth: "132px", imgHeight: "150px"},
