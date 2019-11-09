@@ -148,7 +148,7 @@ body {
   justify-content: center;
   width: 30%;
   height: 30%;
-  background-image: url(img/afficheur.png);
+  background-image: url(img/afficheur2.png);
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
@@ -178,7 +178,7 @@ body {
   width: 100%;
   padding: 0 5%;
   background-color: #fff5d3;
-  background-image: url(img/comptoir.png);
+  background-image: url(img/comptoir2.png);
   background-position: contain;
   background-size: 100% 100%;
   background-repeat: no-repeat;
