@@ -130,9 +130,9 @@ body {
 }
 
 #nom-objet {
-  width: 40%;
+  width: 30%;
   text-align: center;
-  font-size: 4vmin;
+  font-size: 3vmin;
 }
 
 #image-objet {
@@ -163,8 +163,9 @@ body {
 }
 
 #image-achat {
-  height: 96%;
+  /* height: 96%; */
   /* max-width: 96%; */
+  width: 100%;
 }
 
 #receptacle {
