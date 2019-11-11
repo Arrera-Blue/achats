@@ -41,7 +41,8 @@ body {
   height: 10%;
   text-align: center;
   /* background-color: #CCC952; */
-  background-color: #e03a4c;
+  /* background-color: #e03a4c; */
+  background-color: #d52034;
   box-sizing: border-box;
   border-color: white;
   border-style: solid;
@@ -71,7 +72,8 @@ body {
   align-items: center;
   width: 100%;
   height: 25%;
-  background-color: #e03a4c;
+  /* background-color: #e03a4c; */
+  background-color: #d52034;
   box-sizing: border-box;
   border-color: white;
   border-style: solid;
@@ -129,10 +131,11 @@ body {
   height: 30%;
   width: 96%;
   box-sizing: border-box;
-  border-color: red;
+  /* border-color: red; */
+  border-color: #d52034;
   border-style: solid;
-  border-width: 5px;
-  border-radius: 15px;
+  border-width: 8px;
+  /* border-radius: 15px; */
 /*   border-top-width: 3px;
   border-left-width: 3px;
   border-right-width: 3px;
@@ -169,7 +172,7 @@ body {
 #montant {
   font-family: 'digital';
   font-size: 4vmin;
-  color:lightyellow;
+  color:yellow;
   font-weight: bold;
 }
 
@@ -197,7 +200,8 @@ body {
   box-sizing: border-box;
   border-color: white;
   border-style: solid;
-  border-top-width: 5px;
+  /* border-top-width: 5px; */
+  border-top-width: 0;
   border-left-width: 5px;
   border-right-width: 10px;
   border-bottom-width: 10px;
@@ -214,7 +218,7 @@ body {
   min-width: 200px;
   position: fixed;
   left: 35%;
-  top: 25%;
+  top: 30%;
   justify-content: center;
   align-items: center;
 }
@@ -225,6 +229,7 @@ body {
   align-items: center;
   width: 100%;
   box-sizing: border-box;
+  /* border-radius: 25px; */
   border: solid black 1px;
   /* background-color:#ffe2cd; */
   background-color:yellow;

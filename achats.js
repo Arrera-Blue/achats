@@ -43,19 +43,19 @@ const objets = [
   ],
   [  // Objets du niveau 2
     [
-      {nom: "", image: "", prix: 0, affichage: ""},
-      {nom: "", image: "", prix: 0, affichage: ""},
-      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "un croissant", image: "img/croissant.png", prix: 110, affichage: "1,10 €", imgWidth: "170px", imgHeight: "132px"},
+      {nom: "un bouquet de fleurs", image: "img/bouquet.png", prix: 3290, affichage: "32,90 €", imgWidth: "211px", imgHeight: "132px"},
+      {nom: "une bibliothèque", image: "img/bibliotheque.png", prix: 21690, affichage: "216,90 €¶", imgWidth: "69px", imgHeight: "200px"},
     ],
     [
-      {nom: "", image: "", prix: 0, affichage: ""},
-      {nom: "", image: "", prix: 0, affichage: ""},
-      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "un jean femme", image: "img/jean-femme.png", prix: 7465, affichage: "74,65 €", imgWidth: "71px", imgHeight: "200px"},
+      {nom: "un rosbeef de 800 g", image: "img/rosbeef.png", prix: 1704, affichage: "17,04 €", imgWidth: "143px", imgHeight: "132px"},
+      {nom: "lot de 8 piles AA", image: "img/piles.png", prix: 896, affichage: "8,96 €", imgWidth: "143px", imgHeight: "132px"},
     ],
     [
-      {nom: "", image: "", prix: 0, affichage: ""},
-      {nom: "", image: "", prix: 0, affichage: ""},
-      {nom: "", image: "", prix: 0, affichage: ""},
+      {nom: "un paquet de toasts", image: "img/toasts.png", prix: 89, affichage: "0,89 €", imgWidth: "20px", imgHeight: "245px"},
+      {nom: "un canapé en cuir", image: "img/canape.png", prix: 189500, affichage: "1895 €", imgWidth: "220px", imgHeight: "103px"},
+      {nom: "un lampadaire design", image: "img/lampadaire.png", prix: 11995, affichage: "119,95 €", imgWidth: "81px", imgHeight: "200px"},
     ]
   ]
 ]
