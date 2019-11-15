@@ -17,6 +17,8 @@ const monnaie = [
   {image: "img/200euro.png", id: "200_euros", hauteur: "90px", largeur: "180px", titre: "200 euros"},
 ];
 
+const paiements = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
+
 const objets = [
   [  // Objets du niveau 1
     [
@@ -34,7 +36,7 @@ const objets = [
       {nom: "une cocotte en fonte", image: "img/cocotte.png", prix: 14300, affichage: "143 €", imgWidth: "198px", imgHeight: "132px"},
     ],
     [
-      {nom: "un stylo ballon de foot", image: "img/stylo.png", prix: 59, affichage: "59 cts", imgWidth: "26px", imgHeight: "200px"},
+      {nom: "un stylo ballon de foot", image: "img/stylo.png", prix: 58, affichage: "58 cts", imgWidth: "26px", imgHeight: "200px"},
       {nom: "une paire de chaussures", image: "img/chaussures.png", prix: 6300, affichage: "63 €", imgWidth: "167px", imgHeight: "64px"},
       {nom: "une épingle à tête de fleur", image: "img/epingle.png", prix: 37, affichage: "37 cts", imgWidth: "43px", imgHeight: "132px"},
       {nom: "une table de jardin", image: "img/table-jardin.png", prix: 39900, affichage: "399 €", imgWidth: "200px", imgHeight: "94px"},
@@ -45,17 +47,23 @@ const objets = [
     [
       {nom: "un croissant", image: "img/croissant.png", prix: 110, affichage: "1,10 €", imgWidth: "170px", imgHeight: "132px"},
       {nom: "un bouquet de fleurs", image: "img/bouquet.png", prix: 3290, affichage: "32,90 €", imgWidth: "211px", imgHeight: "132px"},
-      {nom: "une bibliothèque", image: "img/bibliotheque.png", prix: 21690, affichage: "216,90 €¶", imgWidth: "69px", imgHeight: "200px"},
+      {nom: "une bibliothèque", image: "img/bibliotheque.png", prix: 21690, affichage: "216,90 €", imgWidth: "69px", imgHeight: "200px"},
+      {nom: "savon liquide", image: "img/savon-liquide.png", prix: 233, affichage: "2,33 €", imgWidth: "73px", imgHeight: "200px"},
+      {nom: "une platine vinyle", image: "img/platine.png", prix: 6395, affichage: "63,95 €", imgWidth: "200px", imgHeight: "194px"},
     ],
     [
       {nom: "un jean femme", image: "img/jean-femme.png", prix: 7465, affichage: "74,65 €", imgWidth: "71px", imgHeight: "200px"},
-      {nom: "un rosbeef de 800 g", image: "img/rosbeef.png", prix: 1704, affichage: "17,04 €", imgWidth: "143px", imgHeight: "132px"},
+      {nom: "un rosbeef de 800 g", image: "img/rosbeef.png", prix: 1704, affichage: "17,04 €", imgWidth: "143px", imgHeight: "132px"},
       {nom: "lot de 8 piles AA", image: "img/piles.png", prix: 896, affichage: "8,96 €", imgWidth: "143px", imgHeight: "132px"},
+      {nom: "une piscine tubulaire", image: "img/piscine.png", prix: 36900, affichage: "369,00 €", imgWidth: "229px", imgHeight: "132px"},
+      {nom: "une boîte d'épinards hâchés à la crème", image: "img/epinards.png", prix: 377, affichage: "3,77 €", imgWidth: "163px", imgHeight: "132px"},
     ],
     [
-      {nom: "un paquet de toasts", image: "img/toasts.png", prix: 89, affichage: "0,89 €", imgWidth: "20px", imgHeight: "245px"},
+      {nom: "un paquet de toasts", image: "img/toasts.png", prix: 89, affichage: "0,89 €", imgWidth: "200px", imgHeight: "245px"},
       {nom: "un canapé en cuir", image: "img/canape.png", prix: 189500, affichage: "1895 €", imgWidth: "220px", imgHeight: "103px"},
       {nom: "un lampadaire design", image: "img/lampadaire.png", prix: 11995, affichage: "119,95 €", imgWidth: "81px", imgHeight: "200px"},
+      {nom: "un bonnet en laine", image: "img/bonnet.png", prix: 2325, affichage: "23,25 €", imgWidth: "132px", imgHeight: "126px"},
+      {nom: "un four à micro-ondes", image: "img/micro-ondes.png", prix: 6939, affichage: "69,39 €", imgWidth: "200px", imgHeight: "122px"},
     ]
   ]
 ]
@@ -66,6 +74,7 @@ const paramSeries = {
   nbSeries: 0,
   seriesFaites: [],
   niveau: 0,
+  option: 0
 }
 
 const paramExercice = {
@@ -131,6 +140,42 @@ function cancelTip(ev) {
   document.querySelector(".tooltip").remove();
 }
 
+function getMinimum(somme) {
+  let ct = 0;
+  let total = 0;
+  let reponse = "";
+  while (total !== somme) {
+    if (total + paiements[ct] > somme) {
+      ct +=1;
+      }
+    else {
+      reponse = reponse + paiements[ct] + "-";
+      total = total + paiements[ct];
+    }
+  }
+  return reponse;
+}
+
+function getPiecesBillets() {
+  let ct = 0;
+  let tableau = [];
+  // let valeur = 0;
+  let listeObjets = [];
+  let chaineObjets = "";
+  [...receptacle.children].forEach(objet => {
+    tableau = objet.id.split("_");
+    listeObjets[ct] = parseInt(tableau[0]);
+    if ((tableau[1] === "euro") || (tableau[1] === "euros")) {
+      listeObjets[ct] = listeObjets[ct] * 100;
+    }
+    ct += 1;
+  });
+  listeObjets.sort();
+  listeObjets.reverse();
+  chaineObjets = listeObjets.join('-');
+  chaineObjets = chaineObjets + "-";
+  return chaineObjets;
+}
 
 function creeReserveMonnaie() {
   let i = 0;
@@ -238,11 +283,17 @@ function choixNiveau() {
 
 function lanceNiveau(ev) {
   let i;
-  videBtSeries();
   const listeNiveaux = document.getElementsByName('niveau');
+  const listeOptions = document.getElementsByName('option');
+  videBtSeries();
   for(i = 0; i < listeNiveaux.length; i++){
     if (listeNiveaux[i].checked) {
       paramSeries.niveau = parseInt(listeNiveaux[i].value);
+    }
+  }
+  for(i = 0; i < listeOptions.length; i++){
+    if (listeOptions[i].checked) {
+      paramSeries.option = listeOptions[i].value;
     }
   }
   creeBtSeries();
@@ -312,10 +363,12 @@ function calculeSomme(idObjet,operation) {
  */
 function verification() {
   let i;
+  let solutionProposee = "";
+  let solutionOptimale = "";
   let message = "<p>Malheureusement, ce n\'est toujours pas le bon montant.</p>";
   if (paramReceptacle.proposition !== paramExercice.solution) {
     if (paramReceptacle.ctPropositions === 0) {
-      showDialog('<p>Malheureusement, le montant de ce qui est sur le comptoir ne correspond pas au prix affiché.');
+      showDialog('<p>Malheureusement, le montant de ce qui est sur le comptoir ne correspond pas au prix affiché.</p>');
       paramReceptacle.ctPropositions += 1;
     }
     else {
@@ -329,6 +382,14 @@ function verification() {
     }
     document.getElementById("btverifier").disabled = false;
     return;
+  }
+  if (paramSeries.option === "option2") {
+    solutionOptimale = getMinimum(paramExercice.solution);
+    solutionProposee = getPiecesBillets(paramReceptacle.proposition);
+    if (solutionProposee !== solutionOptimale) {
+      showDialog("<p>Tu as mis le bon montant, mais tu n'as pas utilisé le moins possible de billets et de pièces.</p>");
+      return;
+    }
   }
   effaceObjet();
   videReceptacle();

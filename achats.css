@@ -98,6 +98,12 @@ body {
   font-size: 3vmin;
 }
 
+.renvoi {
+  font-size: 1.5vmin;
+  font-style: italic;
+  text-transform: none;
+}
+
 #reserve {
   display: flex;
   flex-wrap: wrap;

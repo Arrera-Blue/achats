@@ -18,7 +18,7 @@
     <div id="zone-gauche">
       <div id="consigne">
         <div class="consigne titre-consigne">Consignes</div>
-        <div class="consigne">Place pièces et billets sur le comptoir afin de payer le prix de l'objet.<br/>Pièces ou billets peuvent être enlevés du comptoir par un clic droit.</div>
+        <div class="consigne">Place pièces et billets sur le comptoir afin de payer le prix de l'objet.*<br/>Pièces ou billets peuvent être enlevés du comptoir par un clic droit.<br/><span class="renvoi">*pièces ou billets peuvent être utilisés plusieurs fois.</span></div>
         </div>
       <div id="reserve"></div>
     </div>
@@ -39,6 +39,9 @@
         <p class="titre">Choisis un niveau de difficulté :</p>
         <p><input type="radio" name="niveau" value="0" id="niveau1" checked /> <label for="niveau1">Prix ronds en euros ou en centimes.</label></p>
         <p><input type="radio" name="niveau" value="1" id="niveau2" /> <label for="niveau2">Prix en euros et centimes.</label></p>
+        <p class="titre">Choisis une option :</p>
+        <p><input type="radio" name="option" value="option1" id="option1" checked /> <label for="option1">Usage libre des pièces et billets.</label></p>
+        <p><input type="radio" name="option" value="option2" id="option2" /> <label for="option2">Utiliser le minimum de pièces et billets.</label></p>
         <p class="centre"><button type="submit" class="btcommande">Valider</button></p>
       </form>
     </div>
