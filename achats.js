@@ -167,7 +167,9 @@ function getPiecesBillets() {
     }
     ct += 1;
   });
-  listeObjets.sort();
+  listeObjets.sort(function(a, b) {
+    return a - b;
+  });
   listeObjets.reverse();
   chaineObjets = listeObjets.join('-');
   chaineObjets = chaineObjets + "-";
