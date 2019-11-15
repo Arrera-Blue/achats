@@ -12,7 +12,7 @@ const monnaie = [
   {image: "img/5euro.png", id: "5_euros", hauteur: "92px", largeur: "180px", titre: "5 euros"},
   {image: "img/10euro.png", id: "10_euros", hauteur: "93px", largeur: "180px", titre: "10 euros"},
   {image: "img/20euro.png", id: "20_euros", hauteur: "93px", largeur: "172px", titre: "20 euros"},
-  {image: "img/50euro.png", id: "50_euros", hauteur: "97px", largeur: "180px", titre: "50 euros"},
+  {image: "img/50euro.png", id: "50_euros", hauteur: "97px", largeur: "177px", titre: "50 euros"},
   {image: "img/100euro.png", id: "100_euros", hauteur: "94px", largeur: "180px", titre: "100 euros"},
   {image: "img/200euro.png", id: "200_euros", hauteur: "90px", largeur: "180px", titre: "200 euros"},
 ];
@@ -22,7 +22,7 @@ const paiements = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5,
 const objets = [
   [  // Objets du niveau 1
     [
-      {nom: "un CD", image: "img/cd2.jpg", prix: 1500, affichage: "15 €", imgWidth: "132px", imgHeight: "132px"},
+      {nom: "un CD", image: "img/cd.jpg", prix: 1500, affichage: "15 €", imgWidth: "132px", imgHeight: "132px"},
       {nom: "une baguette de pain", image: "img/baguette.png", prix: 92, affichage: "92 cts", imgWidth: "200px", imgHeight: "36px"},
       {nom: "un ballon", image: "img/ballon.png", prix: 400, affichage: "4 €", imgWidth: "132px", imgHeight: "132px"},
       {nom: "une veste polaire de randonnée", image: "img/polaire.png", prix: 3700, affichage: "37 €", imgWidth: "132px", imgHeight: "150px"},
@@ -88,8 +88,6 @@ var paramReceptacle = {
   proposition: 0,
   ctPropositions: 0
 }
-
-// var pieceBillet =  [];
 
 const reserve =  document.getElementById("reserve");
 const zoneObjets =  document.getElementById("zone-objets");
@@ -159,7 +157,6 @@ function getMinimum(somme) {
 function getPiecesBillets() {
   let ct = 0;
   let tableau = [];
-  // let valeur = 0;
   let listeObjets = [];
   let chaineObjets = "";
   [...receptacle.children].forEach(objet => {
@@ -241,11 +238,8 @@ function activeBtSeries() {
 
 function defSerie() {
   let i;
-  // let numeroSerie = 0;
   let tableau = [];
-  // paramSeries.numeroSerie = parseInt(this.innerText.substring(5));
   paramSeries.numeroSerie = parseInt(this.innerText.substring(5));
-  // numeroSerie -= 1;
   for (i=0; i< objets[paramSeries.niveau][paramSeries.numeroSerie - 1].length; i++) {
     tableau[i] = i;
   }
@@ -262,20 +256,6 @@ function getIdObjet(infosObjet) {
   let tableau = infosObjet.split("-");
   return tableau[0];
 }
-
-/* function getIdParent(infosObjet) {
-  let tableau = infosObjet.split("-");
-  return tableau[1];
-} */
-
-/* function  reinitialise() {
-  let i;
-  activeBtSeries();
-  effaceObjet();
-  videReceptacle();
-  paramSeries.numeroSerie = 0;
-  paramExercice.ctObjets = 0;
-} */
 
 function choixNiveau() {
   document.getElementById("choix-niveau").className = "visible";
@@ -303,7 +283,6 @@ function lanceNiveau(ev) {
 
 function effaceObjet() {
   let i;
-  // const achats = zoneObjets.children;
   document.getElementById("nom-objet").innerHTML = "";
   document.getElementById("montant").innerHTML = "";
   document.getElementById("image-objet").removeChild(document.getElementById("image-achat"));
@@ -356,11 +335,6 @@ function calculeSomme(idObjet,operation) {
   }
 }
 
-/* function commencer() {
-  afficheObjet();
-  document.getElementById("btverifier").disabled = false;
-}
- */
 function verification() {
   let i;
   let solutionProposee = "";
@@ -402,7 +376,6 @@ function verification() {
     else {
       paramExercice.ctObjets = 0;
       document.getElementById("btverifier").disabled = true;
-      // paramSeries.niveau = -1;
       document.getElementById("btniveau").disabled = false;
       if (paramSeries.seriesFaites.length < paramSeries.nbSeries) {
         showDialog("<p>Félicitations !</p><p>Tu as correctement payé tous les objets de cette série.</p>",0.5,'img/trophee.png', 128, 128, 'left');
@@ -433,10 +406,8 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
   const idObjet  = getIdObjet(ev.dataTransfer.getData('Text'));
-  // const idParent = getIdParent(ev.dataTransfer.getData('Text'));
   const objet = document.getElementById(idObjet);
   if (ev.target.id === "receptacle") {  // L'élément est lâché sur une zone libre du réceptacle
-      // ev.target.appendChild(nouvelEspace(idObjet));
       let nodeCopy = objet.cloneNode(true);
       nodeCopy.title = objet.id.replace("_"," ");
       nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
