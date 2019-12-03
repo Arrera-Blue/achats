@@ -19,11 +19,11 @@ const monnaie = [
 
 const paiements = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
 
-const objets = [
+let objets = [
   [  // Objets du niveau 1
     [
       {nom: "un CD", image: "img/cd.jpg", prix: 1500, affichage: "15 €", imgWidth: "132px", imgHeight: "132px"},
-      {nom: "une baguette de pain", image: "img/baguette.png", prix: 92, affichage: "92 cts", imgWidth: "200px", imgHeight: "36px"},
+       {nom: "une baguette de pain", image: "img/baguette.png", prix: 92, affichage: "92 cts", imgWidth: "200px", imgHeight: "36px"},
       {nom: "un ballon", image: "img/ballon.png", prix: 400, affichage: "4 €", imgWidth: "132px", imgHeight: "132px"},
       {nom: "une veste polaire de randonnée", image: "img/polaire.png", prix: 3700, affichage: "37 €", imgWidth: "132px", imgHeight: "150px"},
       {nom: "un sac à colorier", image: "img/sac-colorier.png", prix: 56, affichage: "56 cts", imgWidth: "132px", imgHeight: "179px"},
@@ -75,7 +75,10 @@ const paramSeries = {
   seriesFaites: [],
   typeExo: "",
   niveau: 0,
-  option: 0
+  option: 0,
+  sauvegardePrix: [[],[]],
+  sauvegardeSerie:[],
+  donneesModifiees: false,
 }
 
 const paramExercice = {
@@ -141,6 +144,17 @@ function cancelTip(ev) {
   this.title = title;
   this.removeAttribute("tooltip");
   document.querySelector(".tooltip").remove();
+}
+
+function restaurePrix() {
+  let i;
+  for (i=0; i< objets[paramSeries.sauvegardeSerie[0]][paramSeries.sauvegardeSerie[1]].length; i++) {
+    objets[paramSeries.sauvegardeSerie[0]][paramSeries.sauvegardeSerie[1]][i].prix = paramSeries.sauvegardePrix[0][i];
+    objets[paramSeries.sauvegardeSerie[0]][paramSeries.sauvegardeSerie[1]][i].affichage = paramSeries.sauvegardePrix[1][i];
+    paramSeries.sauvegardePrix[0].pop();
+    paramSeries.sauvegardePrix[1].pop();
+  }
+  paramSeries.donneesModifiees = false;
 }
 
 function getMinimum(somme) {
@@ -245,9 +259,14 @@ function creeReserveMonnaie() {
 function genereMontants() {
   let i = 0;
   let prix = 0;
+  paramSeries.donneesModifiees = true;
+  // Met en mémoire le niveau et le numéro de série
+  paramSeries.sauvegardeSerie[0] = paramSeries.niveau;
+  paramSeries.sauvegardeSerie[1] = paramSeries.numeroSerie - 1;
   for (i=0; i< objets[paramSeries.niveau][paramSeries.numeroSerie - 1].length; i++) {
-/*     objets[paramSeries.niveau][i].nom = "";
-    objets[paramSeries.niveau][i].image = ""; */
+    // Met en mémoire les prix des données originales
+    paramSeries.sauvegardePrix[0].push(objets[paramSeries.niveau][paramSeries.numeroSerie - 1][i].prix);
+    paramSeries.sauvegardePrix[1].push(objets[paramSeries.niveau][paramSeries.numeroSerie - 1][i].affichage);
     prix = getPrixAleatoire();
     objets[paramSeries.niveau][paramSeries.numeroSerie - 1][i].prix = prix;
     objets[paramSeries.niveau][paramSeries.numeroSerie - 1][i].affichage = formatePrix(prix);
@@ -304,6 +323,11 @@ function defSerie() {
   paramSeries.numeroSerie = parseInt(this.innerText.substring(5));
   if (paramSeries.typeExo === "montants") {
     genereMontants();
+  }
+  else {
+    if (paramSeries.donneesModifiees) {
+      restaurePrix();
+    }
   }
   for (i=0; i< objets[paramSeries.niveau][paramSeries.numeroSerie - 1].length; i++) {
     tableau[i] = i;
