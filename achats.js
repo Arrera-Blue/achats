@@ -73,6 +73,7 @@ const paramSeries = {
   numeroSerie: 0,
   nbSeries: 0,
   seriesFaites: [],
+  typeExo: "",
   niveau: 0,
   option: 0
 }
@@ -94,6 +95,10 @@ const zoneObjets =  document.getElementById("zone-objets");
 const receptacle = document.getElementById("receptacle");
 receptacle.addEventListener("contextmenu",function(e){e.preventDefault();});
 const btVerif = document.getElementById("btverifier");
+const btOptions = document.getElementById("btoptions");
+const nomObjet = document.getElementById("nom-objet");
+const imageObjet = document.getElementById("image-objet");
+const montantObjet = document.getElementById("montant");
 
 function alea(min,max) {
   let nb = min + (max-min+1) * Math.random();
@@ -154,6 +159,49 @@ function getMinimum(somme) {
   return reponse;
 }
 
+function getPrixAleatoire() {
+  let typeMonnaie;
+  let prix;
+  typeMonnaie = alea(0,1);
+  if (paramSeries.niveau === 0) {
+    if (typeMonnaie === 0) {
+      prix = alea(1,99);
+    }
+    else {
+      prix = alea(1,1000);
+      prix = prix * 100;
+    }
+  }
+  else {
+    prix = alea(101,100000);
+  }
+  return prix;
+}
+
+function formatePrix(prix) {
+  let affichage = "";
+  let reste = 0;
+  if (prix < 100) {
+    affichage = prix + " cts";
+  }
+  else {
+    if (paramSeries.niveau === 0) {
+      affichage = Math.trunc(prix / 100) + " €";
+    }
+    else {
+      reste = prix % 100;
+      affichage = Math.trunc(prix / 100) + "," ;
+      if (reste < 10) {
+        affichage = affichage + "0" + reste + " €";
+      }
+      else {
+        affichage = affichage + reste + " €";
+      }
+    }
+  }
+  return affichage;
+}
+
 function getPiecesBillets() {
   let ct = 0;
   let tableau = [];
@@ -194,11 +242,23 @@ function creeReserveMonnaie() {
   }
 }
 
+function genereMontants() {
+  let i = 0;
+  let prix = 0;
+  for (i=0; i< objets[paramSeries.niveau][paramSeries.numeroSerie - 1].length; i++) {
+/*     objets[paramSeries.niveau][i].nom = "";
+    objets[paramSeries.niveau][i].image = ""; */
+    prix = getPrixAleatoire();
+    objets[paramSeries.niveau][paramSeries.numeroSerie - 1][i].prix = prix;
+    objets[paramSeries.niveau][paramSeries.numeroSerie - 1][i].affichage = formatePrix(prix);
+  }
+}
+
 function creeBtSeries() {
   const commandes = document.getElementById("commandes");
   let numero;
   let i;
-  document.getElementById("btniveau").disabled = true;
+  document.getElementById("btoptions").disabled = true;
   paramSeries.nbSeries = objets[paramSeries.niveau].length;
   for (i = 0; i < paramSeries.nbSeries; i++) {
     const newBt = document.createElement("button");
@@ -242,6 +302,9 @@ function defSerie() {
   let i;
   let tableau = [];
   paramSeries.numeroSerie = parseInt(this.innerText.substring(5));
+  if (paramSeries.typeExo === "montants") {
+    genereMontants();
+  }
   for (i=0; i< objets[paramSeries.niveau][paramSeries.numeroSerie - 1].length; i++) {
     tableau[i] = i;
   }
@@ -249,7 +312,7 @@ function defSerie() {
   paramExercice.ctObjets = 0;
   afficheObjet();
   document.getElementById("btverifier").disabled = false;
-  document.getElementById("btniveau").disabled = true;
+  document.getElementById("btoptions").disabled = true;
   desactiveBtSeries();
   // commencer();
 }
@@ -259,15 +322,21 @@ function getIdObjet(infosObjet) {
   return tableau[0];
 }
 
-function choixNiveau() {
+function choixOptions() {
   document.getElementById("choix-niveau").className = "visible";
 }
 
-function lanceNiveau(ev) {
+function lanceExercice(ev) {
   let i;
+  const listeExos = document.getElementsByName('type-exo');
   const listeNiveaux = document.getElementsByName('niveau');
   const listeOptions = document.getElementsByName('option');
   videBtSeries();
+  for(i = 0; i < listeExos.length; i++){
+    if (listeExos[i].checked) {
+      paramSeries.typeExo = listeExos[i].value;
+    }
+  }
   for(i = 0; i < listeNiveaux.length; i++){
     if (listeNiveaux[i].checked) {
       paramSeries.niveau = parseInt(listeNiveaux[i].value);
@@ -285,21 +354,30 @@ function lanceNiveau(ev) {
 
 function effaceObjet() {
   let i;
-  document.getElementById("nom-objet").innerHTML = "";
-  document.getElementById("montant").innerHTML = "";
-  document.getElementById("image-objet").removeChild(document.getElementById("image-achat"));
+  nomObjet.innerHTML = "";
+  montant.innerHTML = "";
+  if (document.getElementById("image-achat")) {
+    imageObjet.removeChild(document.getElementById("image-achat"));
+  }
 }
 
 function afficheObjet() {
-  const imageObjet = new Image();
-  document.getElementById("nom-objet").innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].nom;
-  imageObjet.src = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].image;
-  imageObjet.id = "image-achat";
-  imageObjet.style.maxHeight = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgHeight;
-  imageObjet.style.maxWidth = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgWidth;
-  document.getElementById("image-objet").appendChild(imageObjet);
-  document.getElementById("montant").innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].affichage;
+  const image = new Image();
+  montantObjet.innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].affichage;
   paramExercice.solution = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].prix;
+  if (paramSeries.typeExo === "montants") {
+    nomObjet.className = "invisible"
+    imageObjet.className = "invisible";
+    return;
+  }
+  nomObjet.className = "visible"
+  imageObjet.className = "visible";
+  nomObjet.innerHTML = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].nom;
+  image.src = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].image;
+  image.id = "image-achat";
+  image.style.maxHeight = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgHeight;
+  image.style.maxWidth = objets[paramSeries.niveau][paramSeries.numeroSerie - 1][paramExercice.ordreObjets[paramExercice.ctObjets]].imgWidth;
+  imageObjet.appendChild(image);
 }
 
 function videReceptacle() {
@@ -378,7 +456,7 @@ function verification() {
     else {
       paramExercice.ctObjets = 0;
       document.getElementById("btverifier").disabled = true;
-      document.getElementById("btniveau").disabled = false;
+      document.getElementById("btoptions").disabled = false;
       if (paramSeries.seriesFaites.length < paramSeries.nbSeries) {
         showDialog("<p>Félicitations !</p><p>Tu as correctement payé tous les objets de cette série.</p>",0.5,'img/trophee.png', 128, 128, 'left');
         paramSeries.seriesFaites.push(parseInt(paramSeries.numeroSerie));
@@ -422,5 +500,5 @@ function drop(ev) {
     }
 }
 
-choixNiveau();
+choixOptions();
 creeReserveMonnaie();

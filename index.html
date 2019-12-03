@@ -12,7 +12,7 @@
   <div id="ecran-blanc" class="invisible"></div>
   <div id="commandes">
     <button id="btverifier" type="button" class="btcommande" disabled onclick="verification()">Vérifier</button>
-    <button id="btniveau" type="button" class="btcommande" disabled onclick="choixNiveau()">Choisir un niveau</button>
+    <button id="btoptions" type="button" class="btcommande" disabled onclick="choixOptions()">Changer les options</button>
   </div>
   <div id="zone-action">
     <div id="zone-gauche">
@@ -35,7 +35,10 @@
   </div>
   <div id="choix-niveau" class="invisible">
     <div id="formulaire">
-      <form name="form-niveau" id="form-niveau" action="index.html" onsubmit="lanceNiveau(event);">
+      <form name="form-niveau" id="form-niveau" action="index.html" onsubmit="lanceExercice(event);">
+        <p class="titre">Choisis un exercice:</p>
+        <p><input type="radio" name="type-exo" value="objets" id="exo1" checked /> <label for="exo1">Acheter des objets.</label></p>
+        <p><input type="radio" name="type-exo" value="montants" id="exo2" /> <label for="exo2">Payer un montant donné.</label></p>
         <p class="titre">Choisis un niveau de difficulté :</p>
         <p><input type="radio" name="niveau" value="0" id="niveau1" checked /> <label for="niveau1">Prix ronds en euros ou en centimes.</label></p>
         <p><input type="radio" name="niveau" value="1" id="niveau2" /> <label for="niveau2">Prix en euros et centimes.</label></p>
