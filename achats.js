@@ -520,7 +520,6 @@ function drop(ev) {
       nodeCopy.addEventListener('mouseover', createTip);
       nodeCopy.addEventListener('mouseout', cancelTip);
       nodeCopy.addEventListener("mouseup", effacePieceBillet);
-      nodeCopy.addEventListener("ondragover", allowDrop(event));
       // ev.target.appendChild(nodeCopy);
       receptacle.appendChild(nodeCopy);
     }
