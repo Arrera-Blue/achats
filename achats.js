@@ -511,7 +511,7 @@ function drop(ev) {
   ev.preventDefault();
   const idObjet  = getIdObjet(ev.dataTransfer.getData('Text'));
   const objet = document.getElementById(idObjet);
-  if (ev.target.id === "receptacle") {  // L'élément est lâché sur une zone libre du réceptacle
+  if ((ev.target.id === "receptacle") || (ev.target.parentNode.id === "receptacle")) {
       let nodeCopy = objet.cloneNode(true);
       nodeCopy.title = objet.id.replace("_"," ");
       nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
@@ -520,7 +520,9 @@ function drop(ev) {
       nodeCopy.addEventListener('mouseover', createTip);
       nodeCopy.addEventListener('mouseout', cancelTip);
       nodeCopy.addEventListener("mouseup", effacePieceBillet);
-      ev.target.appendChild(nodeCopy);
+      nodeCopy.addEventListener("ondragover", allowDrop(event));
+      // ev.target.appendChild(nodeCopy);
+      receptacle.appendChild(nodeCopy);
     }
 }
 
