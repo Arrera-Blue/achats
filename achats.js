@@ -502,10 +502,12 @@ function allowDrop(ev) {
 
 function drag(ev) {
   let infosObjet;
+  let img = new Image();
+  img.src = ev.target.src;
   const offsetX = ev.target.clientWidth;
   const offsetY = ev.target.clientHeight;
   infosObjet = ev.target.id + "-" + ev.target.parentNode.id;
-  ev.dataTransfer.setDragImage(ev.target, offsetX, offsetY);
+  ev.dataTransfer.setDragImage(img, offsetX, offsetY);
   ev.dataTransfer.setData("text", infosObjet);
 }
 
