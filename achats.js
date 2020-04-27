@@ -348,6 +348,7 @@ function getIdObjet(infosObjet) {
 
 function choixOptions() {
   document.getElementById("choix-niveau").className = "visible";
+  document.getElementById("btok").focus();
 }
 
 function lanceExercice(ev) {
@@ -529,5 +530,5 @@ function drop(ev) {
     }
 }
 
-choixOptions();
 creeReserveMonnaie();
+choixOptions();
