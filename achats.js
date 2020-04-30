@@ -475,12 +475,13 @@ function appuiTactile(ev) {
     dragObj.touchTimeStart = ev.timeStamp;
     return;
   }
-}
-
-function debutTactile(ev) {
-  ev.preventDefault();
   dragObj.touchTimeStart = ev.timeStamp;
 }
+
+/* function debutTactile(ev) {
+  ev.preventDefault();
+  dragObj.touchTimeStart = ev.timeStamp;
+} */
 
 function dragTactile(ev) {
   let touchPosition = ev.targetTouches[0];
@@ -539,12 +540,21 @@ function dropTactile(ev) {
   }
   if ((parent.id === "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
     receptacle.removeChild(dragObj.dragImg);
+    verifieAppuiLong(ev);
   }
   dragObj.derX = 0;
   dragObj.derY = 0;
 }
 
-function finTactile(ev) {
+/* function finTactile(ev) {
+  let temps;
+  dragObj.touchEnd = ev.timeStamp;
+  temps = dragObj.touchEnd  - dragObj.touchTimeStart;
+  if (temps > 1000) {
+    effacePieceBillet(ev);
+  }
+} */
+function verifieAppuiLong(ev) {
   let temps;
   dragObj.touchEnd = ev.timeStamp;
   temps = dragObj.touchEnd  - dragObj.touchTimeStart;
