@@ -25,6 +25,7 @@ var paramReceptacle = {
   ctPropositions: 0
 }
 
+//paramètres nécessaire à la gestion du drag & drop tactile
 const dragObj = {
   dragimg: {},
   idSource: "",
@@ -176,12 +177,10 @@ function creeReserveMonnaie() {
   for (i=0; i<14; i++) {
     pieceBillet[i] = new Image();
     pieceBillet[i].className = "draggable";
-    pieceBillet[i].addEventListener("dragstart", drag);
     pieceBillet[i].addEventListener('touchstart',appuiTactile);
-    // pieceBillet[i].addEventListener('touchcancel',abandonTactile);
     pieceBillet[i].addEventListener('touchmove',dragTactile);
     pieceBillet[i].addEventListener('touchend',dropTactile);
-    // pieceBillet[i].addEventListener("touchmove", touchDrag);
+    pieceBillet[i].addEventListener("dragstart", drag);
     pieceBillet[i].addEventListener('mouseover', createTip);
     pieceBillet[i].addEventListener('mouseout', cancelTip);
     pieceBillet[i].src = monnaie[i].image;
@@ -455,6 +454,7 @@ function drag(ev) {
 function appuiTactile(ev) {
   let obj = ev.currentTarget;
   let touchPosition = ev.targetTouches[0];
+  let parent = ev.currentTarget.parentNode;
   ev.preventDefault();
   dragObj.dragImg = new Image();
   dragObj.dragImg.src = ev.target.src;
@@ -462,9 +462,19 @@ function appuiTactile(ev) {
   dragObj.dragImg.style.position = "absolute";
   dragObj.decX = touchPosition.pageX - obj.offsetLeft;
   dragObj.decY = touchPosition.pageY - obj.offsetTop;
- dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
- dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px';
- reserve.appendChild(dragObj.dragImg);
+  dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
+  dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px';
+  dragObj.derX = touchPosition.pageX;
+  dragObj.derY = touchPosition.pageY;
+  if (parent.id === "reserve") {
+    reserve.appendChild(dragObj.dragImg);
+    return;
+  }
+  if (parent.id === "receptacle") {
+    receptacle.appendChild(dragObj.dragImg);
+    dragObj.touchTimeStart = ev.timeStamp;
+    return;
+  }
 }
 
 function debutTactile(ev) {
@@ -490,7 +500,7 @@ function survol(objet,posX,posY) {
   return survole;
 }
 
-function dropTactile(ev) {
+/* function dropTactile(ev) {
   ev.preventDefault();
   if (survol(receptacle,dragObj.derX,dragObj.derY)) {
     const objet = document.getElementById(dragObj.idSource);
@@ -499,6 +509,39 @@ function dropTactile(ev) {
   reserve.removeChild(dragObj.dragImg);
   dragObj.derX = 0;
   dragObj.derY = O;
+} */
+
+/* function dropTactile(ev) {
+  ev.preventDefault();
+  if (survol(receptacle,dragObj.derX,dragObj.derY)) {
+    const objet = document.getElementById(dragObj.idSource);
+    depotComptoir(objet);
+  }
+  reserve.removeChild(dragObj.dragImg);
+  dragObj.derX = 0;
+  dragObj.derY = 0;
+} */
+
+function dropTactile(ev) {
+  let parent = ev.currentTarget.parentNode;
+  ev.preventDefault();
+  if ((parent.id !== "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
+    const objet = document.getElementById(dragObj.idSource);
+    depotComptoir(objet);
+    reserve.removeChild(dragObj.dragImg);
+  }
+  if ((parent.id !== "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
+    receptacle.removeChild(dragObj.dragImg);
+    effacePieceBillet(ev);
+  }
+  if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
+    reserve.removeChild(dragObj.dragImg);
+  }
+  if ((parent.id === "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
+    receptacle.removeChild(dragObj.dragImg);
+  }
+  dragObj.derX = 0;
+  dragObj.derY = 0;
 }
 
 function finTactile(ev) {
@@ -517,7 +560,7 @@ function actionBtSouris(ev) {
   }
 }
 
-function depotComptoir(objet) {
+/* function depotComptoir(objet) {
   let nodeCopy = objet.cloneNode(true);
   nodeCopy.title = objet.id.replace("_"," ");
   nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
@@ -525,6 +568,23 @@ function depotComptoir(objet) {
   paramReceptacle.ctId += 1;
   nodeCopy.addEventListener("touchstart", debutTactile);
   nodeCopy.addEventListener("touchend", finTactile);
+  nodeCopy.addEventListener('mouseover', createTip);
+  nodeCopy.addEventListener('mouseout', cancelTip);
+  nodeCopy.addEventListener("mouseup", actionBtSouris);
+  receptacle.appendChild(nodeCopy);
+} */
+
+function depotComptoir(objet) {
+  let nodeCopy = objet.cloneNode(true);
+  nodeCopy.title = objet.id.replace("_"," ");
+  nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
+  calculeSomme(objet.id,"ajout");
+  paramReceptacle.ctId += 1;
+  // nodeCopy.addEventListener("touchstart", debutTactile);
+  nodeCopy.addEventListener('touchstart',appuiTactile);
+  nodeCopy.addEventListener('touchmove',dragTactile);
+  nodeCopy.addEventListener('touchend',dropTactile);
+  // nodeCopy.addEventListener("touchend", finTactile);
   nodeCopy.addEventListener('mouseover', createTip);
   nodeCopy.addEventListener('mouseout', cancelTip);
   nodeCopy.addEventListener("mouseup", actionBtSouris);
