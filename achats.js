@@ -284,6 +284,13 @@ function getIdObjet(infosObjet) {
   return tableau[0];
 }
 
+// Retourne vrai si la position du doigt est sur l'objet
+function survol(objet,posX,posY) {
+  let survole;
+  survole = (posX >= objet.offsetLeft) && (posX <= objet.offsetLeft + objet.offsetWidth) && (posY >= objet.offsetTop) && (posY <= objet.offsetTop + objet.offsetHeight);
+  return survole;
+}
+
 function choixOptions() {
   document.getElementById("choix-niveau").className = "visible";
 }
@@ -352,6 +359,23 @@ function videReceptacle() {
   }
   paramReceptacle.proposition = 0;
   paramReceptacle.ctPropositions = 0;
+}
+
+function depotComptoir(objet) {
+  let nodeCopy = objet.cloneNode(true);
+  nodeCopy.title = objet.id.replace("_"," ");
+  nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
+  calculeSomme(objet.id,"ajout");
+  paramReceptacle.ctId += 1;
+  // nodeCopy.addEventListener("touchstart", debutTactile);
+  nodeCopy.addEventListener('touchstart',appuiTactile);
+  nodeCopy.addEventListener('touchmove',dragTactile);
+  nodeCopy.addEventListener('touchend',dropTactile);
+  // nodeCopy.addEventListener("touchend", finTactile);
+  nodeCopy.addEventListener('mouseover', createTip);
+  nodeCopy.addEventListener('mouseout', cancelTip);
+  nodeCopy.addEventListener("mouseup", actionBtSouris);
+  receptacle.appendChild(nodeCopy);
 }
 
 function effacePieceBillet(ev) {
@@ -436,6 +460,50 @@ function verification() {
   }
 }
 
+function verifieAppuiLong(ev) {
+  let temps;
+  dragObj.touchEnd = ev.timeStamp;
+  temps = dragObj.touchEnd  - dragObj.touchTimeStart;
+  if (temps > 1000) {
+    effacePieceBillet(ev);
+  }
+}
+
+function actionBtSouris(ev) {
+  ev.preventDefault();
+  if (ev.which==3) {
+    effacePieceBillet(ev);
+  }
+}
+
+function appuiTactile(ev) {
+  let obj = ev.currentTarget;
+  let touchPosition = ev.targetTouches[0];
+  let parent = ev.currentTarget.parentNode;
+  ev.preventDefault();
+  dragObj.dragImg = new Image();
+  dragObj.dragImg.src = ev.target.src;
+  dragObj.idSource = ev.target.id;
+  dragObj.dragImg.style.position = "absolute";
+  // Position du doigt relativement aux bords de l'image
+  dragObj.decX = touchPosition.pageX - obj.offsetLeft;
+  dragObj.decY = touchPosition.pageY - obj.offsetTop;
+  dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
+  dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px';
+  // Mémorise la dernière position de l'image avant d'être relâchée
+  dragObj.derX = touchPosition.pageX;
+  dragObj.derY = touchPosition.pageY;
+  if (parent.id === "reserve") {
+    reserve.appendChild(dragObj.dragImg);
+    return;
+  }
+  if (parent.id === "receptacle") {
+    receptacle.appendChild(dragObj.dragImg);
+    dragObj.touchTimeStart = ev.timeStamp;
+    return;
+  }
+}
+
 function allowDrop(ev) {
     ev.preventDefault();
 }
@@ -451,37 +519,18 @@ function drag(ev) {
   ev.dataTransfer.setData("text", infosObjet);
 }
 
-function appuiTactile(ev) {
-  let obj = ev.currentTarget;
+function dragTactile(ev) {
   let touchPosition = ev.targetTouches[0];
-  let parent = ev.currentTarget.parentNode;
   ev.preventDefault();
-  dragObj.dragImg = new Image();
-  dragObj.dragImg.src = ev.target.src;
-  dragObj.idSource = ev.target.id;
-  dragObj.dragImg.style.position = "absolute";
-  dragObj.decX = touchPosition.pageX - obj.offsetLeft;
-  dragObj.decY = touchPosition.pageY - obj.offsetTop;
+  if (! dragObj.dragImg) {
+    return;
+  }
   dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
   dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px';
+  // Mémorise la dernière position de l'image avant d'être relâchée
   dragObj.derX = touchPosition.pageX;
   dragObj.derY = touchPosition.pageY;
-  if (parent.id === "reserve") {
-    reserve.appendChild(dragObj.dragImg);
-    return;
-  }
-  if (parent.id === "receptacle") {
-    receptacle.appendChild(dragObj.dragImg);
-    dragObj.touchTimeStart = ev.timeStamp;
-    return;
-  }
-  dragObj.touchTimeStart = ev.timeStamp;
 }
-
-/* function debutTactile(ev) {
-  ev.preventDefault();
-  dragObj.touchTimeStart = ev.timeStamp;
-} */
 
 function dragTactile(ev) {
   let touchPosition = ev.targetTouches[0];
@@ -494,34 +543,6 @@ function dragTactile(ev) {
   dragObj.derX = touchPosition.pageX;
   dragObj.derY = touchPosition.pageY;
 }
-
-function survol(objet,posX,posY) {
-  let survole;
-  survole = (posX >= objet.offsetLeft) && (posX <= objet.offsetLeft + objet.offsetWidth) && (posY >= objet.offsetTop) && (posY <= objet.offsetTop + objet.offsetHeight);
-  return survole;
-}
-
-/* function dropTactile(ev) {
-  ev.preventDefault();
-  if (survol(receptacle,dragObj.derX,dragObj.derY)) {
-    const objet = document.getElementById(dragObj.idSource);
-    depotComptoir(objet);
-  }
-  reserve.removeChild(dragObj.dragImg);
-  dragObj.derX = 0;
-  dragObj.derY = O;
-} */
-
-/* function dropTactile(ev) {
-  ev.preventDefault();
-  if (survol(receptacle,dragObj.derX,dragObj.derY)) {
-    const objet = document.getElementById(dragObj.idSource);
-    depotComptoir(objet);
-  }
-  reserve.removeChild(dragObj.dragImg);
-  dragObj.derX = 0;
-  dragObj.derY = 0;
-} */
 
 function dropTactile(ev) {
   let parent = ev.currentTarget.parentNode;
@@ -546,61 +567,6 @@ function dropTactile(ev) {
   dragObj.derY = 0;
 }
 
-/* function finTactile(ev) {
-  let temps;
-  dragObj.touchEnd = ev.timeStamp;
-  temps = dragObj.touchEnd  - dragObj.touchTimeStart;
-  if (temps > 1000) {
-    effacePieceBillet(ev);
-  }
-} */
-function verifieAppuiLong(ev) {
-  let temps;
-  dragObj.touchEnd = ev.timeStamp;
-  temps = dragObj.touchEnd  - dragObj.touchTimeStart;
-  if (temps > 1000) {
-    effacePieceBillet(ev);
-  }
-}
-
-function actionBtSouris(ev) {
-  ev.preventDefault();
-  if (ev.which==3) {
-    effacePieceBillet(ev);
-  }
-}
-
-/* function depotComptoir(objet) {
-  let nodeCopy = objet.cloneNode(true);
-  nodeCopy.title = objet.id.replace("_"," ");
-  nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
-  calculeSomme(objet.id,"ajout");
-  paramReceptacle.ctId += 1;
-  nodeCopy.addEventListener("touchstart", debutTactile);
-  nodeCopy.addEventListener("touchend", finTactile);
-  nodeCopy.addEventListener('mouseover', createTip);
-  nodeCopy.addEventListener('mouseout', cancelTip);
-  nodeCopy.addEventListener("mouseup", actionBtSouris);
-  receptacle.appendChild(nodeCopy);
-} */
-
-function depotComptoir(objet) {
-  let nodeCopy = objet.cloneNode(true);
-  nodeCopy.title = objet.id.replace("_"," ");
-  nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
-  calculeSomme(objet.id,"ajout");
-  paramReceptacle.ctId += 1;
-  // nodeCopy.addEventListener("touchstart", debutTactile);
-  nodeCopy.addEventListener('touchstart',appuiTactile);
-  nodeCopy.addEventListener('touchmove',dragTactile);
-  nodeCopy.addEventListener('touchend',dropTactile);
-  // nodeCopy.addEventListener("touchend", finTactile);
-  nodeCopy.addEventListener('mouseover', createTip);
-  nodeCopy.addEventListener('mouseout', cancelTip);
-  nodeCopy.addEventListener("mouseup", actionBtSouris);
-  receptacle.appendChild(nodeCopy);
-}
-
 function drop(ev) {
   ev.preventDefault();
   const idObjet  = getIdObjet(ev.dataTransfer.getData('Text'));
@@ -608,6 +574,29 @@ function drop(ev) {
   if ((ev.target.id === "receptacle") || (ev.target.parentNode.id === "receptacle")) {
     depotComptoir(objet);
   }
+}
+
+function dropTactile(ev) {
+  let parent = ev.currentTarget.parentNode;
+  ev.preventDefault();
+  if ((parent.id !== "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
+    const objet = document.getElementById(dragObj.idSource);
+    depotComptoir(objet);
+    reserve.removeChild(dragObj.dragImg);
+  }
+  if ((parent.id !== "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
+    receptacle.removeChild(dragObj.dragImg);
+    effacePieceBillet(ev);
+  }
+  if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
+    reserve.removeChild(dragObj.dragImg);
+  }
+  if ((parent.id === "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
+    receptacle.removeChild(dragObj.dragImg);
+    verifieAppuiLong(ev);
+  }
+  dragObj.derX = 0;
+  dragObj.derY = 0;
 }
 
 choixOptions();
