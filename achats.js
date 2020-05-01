@@ -532,29 +532,6 @@ function dragTactile(ev) {
   dragObj.derY = touchPosition.pageY;
 }
 
-function dropTactile(ev) {
-  let parent = ev.currentTarget.parentNode;
-  ev.preventDefault();
-  if ((parent.id !== "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
-    const objet = document.getElementById(dragObj.idSource);
-    depotComptoir(objet);
-    reserve.removeChild(dragObj.dragImg);
-  }
-  if ((parent.id !== "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
-    receptacle.removeChild(dragObj.dragImg);
-    effaceValeur(ev);
-  }
-  if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
-    reserve.removeChild(dragObj.dragImg);
-  }
-  if ((parent.id === "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
-    receptacle.removeChild(dragObj.dragImg);
-    verifieAppuiLong(ev);
-  }
-  dragObj.derX = 0;
-  dragObj.derY = 0;
-}
-
 function drop(ev) {
   ev.preventDefault();
   const idObjet  = getIdObjet(ev.dataTransfer.getData('Text'));
