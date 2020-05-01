@@ -374,7 +374,7 @@ function depotComptoir(objet) {
   // nodeCopy.addEventListener("touchend", finTactile);
   nodeCopy.addEventListener('mouseover', createTip);
   nodeCopy.addEventListener('mouseout', cancelTip);
-  nodeCopy.addEventListener("mouseup", actionBtSouris);
+  nodeCopy.addEventListener("mouseup", supprimeValeur);
   receptacle.appendChild(nodeCopy);
 }
 
@@ -469,9 +469,9 @@ function verifieAppuiLong(ev) {
   }
 }
 
-function actionBtSouris(ev) {
+function supprimeValeur(ev) {
   ev.preventDefault();
-  if (ev.which==3) {
+  if (ev.which == 3) {
     effacePieceBillet(ev);
   }
 }
