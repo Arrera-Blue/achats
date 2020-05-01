@@ -149,7 +149,7 @@ function formatePrix(prix) {
   return affichage;
 }
 
-function getPiecesBillets() {
+function getValeurs() {
   let ct = 0;
   let tableau = [];
   let listeObjets = [];
@@ -353,7 +353,7 @@ function afficheObjet() {
   imageObjet.appendChild(image);
 }
 
-function videReceptacle() {
+function videComptoir() {
   while (receptacle.firstChild) {
     receptacle.removeChild(receptacle.firstChild);
   }
@@ -378,7 +378,7 @@ function depotComptoir(objet) {
   receptacle.appendChild(nodeCopy);
 }
 
-function effacePieceBillet(ev) {
+function effaceValeur(ev) {
   // if (ev.which==3) {
     let infosObjet;
     infosObjet = ev.target.id;
@@ -431,14 +431,14 @@ function verification() {
   }
   if (paramSeries.option === "option2") {
     solutionOptimale = getMinimum(paramExercice.solution);
-    solutionProposee = getPiecesBillets(paramReceptacle.proposition);
+    solutionProposee = getValeurs(paramReceptacle.proposition);
     if (solutionProposee !== solutionOptimale) {
       showDialog("<p>Tu as mis le bon montant, mais tu n'as pas utilisé le moins possible de billets et de pièces.</p>");
       return;
     }
   }
   effaceObjet();
-  videReceptacle();
+  videComptoir();
   if (paramExercice.ctObjets + 1 < paramExercice.ordreObjets.length) {
     showDialog('Bravo !',0.5,'img/happy-tux.png', 89, 91, 'left');
     paramExercice.ctObjets += 1;
@@ -465,14 +465,14 @@ function verifieAppuiLong(ev) {
   dragObj.touchEnd = ev.timeStamp;
   temps = dragObj.touchEnd  - dragObj.touchTimeStart;
   if (temps > 1000) {
-    effacePieceBillet(ev);
+    effaceValeur(ev);
   }
 }
 
 function supprimeValeur(ev) {
   ev.preventDefault();
   if (ev.which == 3) {
-    effacePieceBillet(ev);
+    effaceValeur(ev);
   }
 }
 
@@ -532,18 +532,6 @@ function dragTactile(ev) {
   dragObj.derY = touchPosition.pageY;
 }
 
-function dragTactile(ev) {
-  let touchPosition = ev.targetTouches[0];
-  ev.preventDefault();
-  if (! dragObj.dragImg) {
-    return;
-  }
-  dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
-  dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px';
-  dragObj.derX = touchPosition.pageX;
-  dragObj.derY = touchPosition.pageY;
-}
-
 function dropTactile(ev) {
   let parent = ev.currentTarget.parentNode;
   ev.preventDefault();
@@ -554,7 +542,7 @@ function dropTactile(ev) {
   }
   if ((parent.id !== "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
     receptacle.removeChild(dragObj.dragImg);
-    effacePieceBillet(ev);
+    effaceValeur(ev);
   }
   if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
     reserve.removeChild(dragObj.dragImg);
@@ -586,7 +574,7 @@ function dropTactile(ev) {
   }
   if ((parent.id !== "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
     receptacle.removeChild(dragObj.dragImg);
-    effacePieceBillet(ev);
+    effaceValeur(ev);
   }
   if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
     reserve.removeChild(dragObj.dragImg);
