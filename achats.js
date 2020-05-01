@@ -478,13 +478,23 @@ function supprimeValeur(ev) {
 
 function appuiTactile(ev) {
   let obj = ev.currentTarget;
+  let url = "";
   let touchPosition = ev.targetTouches[0];
   let parent = ev.currentTarget.parentNode;
   ev.preventDefault();
   dragObj.dragImg = new Image();
+/*   dragObj.dragImg = document.createElement("div");
+  url = 'url("' + ev.target.src + '")'; 
+  dragObj.dragImg.style.backgroundImage = url; */
   dragObj.dragImg.src = ev.target.src;
   dragObj.idSource = ev.target.id;
   dragObj.dragImg.style.position = "absolute";
+ /* let image = new Image();
+  image.src = ev.target.src;
+  dragObj.dragImg.appendChild(image);
+  dragObj.dragImg.style.width = image.naturalWidth + 'px';
+  dragObj.dragImg.style.height = image.naturalHeight + 'px';
+  dragObj.dragImg.style.height = 'auto'; */
   // Position du doigt relativement aux bords de l'image
   dragObj.decX = touchPosition.pageX - obj.offsetLeft;
   dragObj.decY = touchPosition.pageY - obj.offsetTop;
@@ -559,6 +569,12 @@ function dropTactile(ev) {
   if ((parent.id === "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
     receptacle.removeChild(dragObj.dragImg);
     verifieAppuiLong(ev);
+  }
+  if ((parent.id === "reserve") && (!survol(receptacle,dragObj.derX,dragObj.derY))) {
+    reserve.removeChild(dragObj.dragImg);
+  }
+  if ((parent.id === "receptacle") && (!survol(reserve,dragObj.derX,dragObj.derY))) {
+    receptacle.removeChild(dragObj.dragImg);
   }
   dragObj.derX = 0;
   dragObj.derY = 0;
