@@ -67,6 +67,13 @@ function melange(tableau) {
   return tab_alea;
 }
 
+function getNomFichier(url) {
+  let nom = "";
+  let tab = url.split('/');
+  nom = tab[tab.length - 1];
+  return nom;
+}
+
 function createTip(ev) {
   var title = this.title;
   this.title = '';
@@ -478,23 +485,18 @@ function supprimeValeur(ev) {
 
 function appuiTactile(ev) {
   let obj = ev.currentTarget;
-  let url = "";
+  let nomImage = ""
+  // let url = "";
   let touchPosition = ev.targetTouches[0];
   let parent = ev.currentTarget.parentNode;
   ev.preventDefault();
-  dragObj.dragImg = new Image();
-/*   dragObj.dragImg = document.createElement("div");
-  url = 'url("' + ev.target.src + '")'; 
-  dragObj.dragImg.style.backgroundImage = url; */
-  dragObj.dragImg.src = ev.target.src;
+  dragObj.dragImg = document.createElement("div");
+  nomImage = getNomFichier(ev.target.src);
+  dragObj.dragImg.style.backgroundImage = 'url("img/' + nomImage + '")';
   dragObj.idSource = ev.target.id;
   dragObj.dragImg.style.position = "absolute";
- /* let image = new Image();
-  image.src = ev.target.src;
-  dragObj.dragImg.appendChild(image);
-  dragObj.dragImg.style.width = image.naturalWidth + 'px';
-  dragObj.dragImg.style.height = image.naturalHeight + 'px';
-  dragObj.dragImg.style.height = 'auto'; */
+  dragObj.dragImg.style.width = dragImages[nomImage].largeur;
+  dragObj.dragImg.style.height = dragImages[nomImage].hauteur;
   // Position du doigt relativement aux bords de l'image
   dragObj.decX = touchPosition.pageX - obj.offsetLeft;
   dragObj.decY = touchPosition.pageY - obj.offsetTop;

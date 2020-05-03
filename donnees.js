@@ -17,6 +17,39 @@ const monnaie = [
   {image: "img/200euro.png", id: "200_euros", hauteur: "90px", largeur: "180px", titre: "200 euros"},
 ];
 
+const dragImages = {
+  "1ct.png": {largeur: "122px", hauteur: "121px"},
+  "2ct.png": {largeur: "138px", hauteur: "139px"},
+  "5ct.png": {url:"url('img/5ct.png')", largeur: "157px", hauteur: "157px"},
+  "10ct.png": {url:"url('img/10ct.png')", largeur: "147px", hauteur: "148px"},
+  "20ct.png": {src:"url('img/20ct.png')", largeur: "166px", hauteur: "167px"},
+  "50ct.png": {url:"url('img/50ct.png')", largeur: "181px", hauteur: "181px"},
+  "1euro.png": {url:"url('img/1euro.png')", largeur: "174px", hauteur: "174px"},
+  "2euro.png": {src:"url('img/2euro.png')", largeur: "192px", hauteur: "192px"},
+  "5euro.png": {url:"url('img/5euro.png')", largeur: "360px", hauteur: "184px"},
+  "10euro.png": {url:"url('img/10euro.png')", largeur: "360px", hauteur: "187px"},
+  "20euro.png": {url:"url('img/20euro.png')", largeur: "345px", hauteur: "187px"},
+  "50euro.png": {url:"url('img/50euro.png')", largeur: "355px", hauteur: "194px"},
+  "100euro.png": {url:"url('img/100euro.png')", largeur: "360px", hauteur: "188px"},
+  "200euro.png": {url:"url('img/200euro.png')", largeur: "360px", hauteur: "179px"},
+};
+/* const dragImages = {
+  "1_centime": {url:"url('img/1ct.png')", largeur: "122px", hauteur: "121px"},
+  "2_centimes": {url:"url('img/2ct.png')", largeur: "138px", hauteur: "139px"},
+  "5_centimes": {url:"url('img/5ct.png')", largeur: "157px", hauteur: "157px"},
+  "10_centimes": {url:"url('img/10ct.png')", largeur: "147px", hauteur: "148px"},
+  "20_centimes": {src:"url('img/20ct.png')", largeur: "166px", hauteur: "167px"},
+  "50_centimes": {url:"url('img/50ct.png')", largeur: "181px", hauteur: "181px"},
+  "1_euro": {url:"url('img/1euro.png')", largeur: "174px", hauteur: "174px"},
+  "2_euros": {src:"url('img/2euro.png')", largeur: "192px", hauteur: "192px"},
+  "5_euros": {url:"url('img/5euro.png')", largeur: "360px", hauteur: "184px"},
+  "10_euros": {url:"url('img/10euro.png')", largeur: "360px", hauteur: "187px"},
+  "20_euros": {url:"url('img/20euro.png')", largeur: "345px", hauteur: "187px"},
+  "50_euros": {url:"url('img/50euro.png')", largeur: "355px", hauteur: "194px"},
+  "100_euros": {url:"url('img/100euro.png')", largeur: "360px", hauteur: "188px"},
+  "200_euros": {url:"url('img/200euro.png')", largeur: "360px", hauteur: "179px"},
+}; */
+
 const paiements = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
 
 const objets = [
