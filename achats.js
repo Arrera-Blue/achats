@@ -109,7 +109,7 @@ function cancelTip(ev) {
 
 function selectionneConsigne() {
   let consigne;
-  if (is_touch_device) {
+  if (is_touch_device()) {
     consigne = document.getElementById("tactile");
   }
   else {
