@@ -48,6 +48,15 @@ const nomObjet = document.getElementById("nom-objet");
 const imageObjet = document.getElementById("image-objet");
 const montantObjet = document.getElementById("montant");
 
+function is_touch_device() {  
+  try {  
+    document.createEvent("TouchEvent");  
+    return true;  
+  } catch (e) {  
+    return false;  
+  }  
+}
+
 function alea(min,max) {
   let nb = min + (max-min+1) * Math.random();
   return Math.floor(nb);
@@ -96,6 +105,17 @@ function cancelTip(ev) {
   this.title = title;
   this.removeAttribute("tooltip");
   document.querySelector(".tooltip").remove();
+}
+
+function selectionneConsigne() {
+  let consigne;
+  if (is_touch_device) {
+    consigne = document.getElementById("tactile");
+  }
+  else {
+    consigne = document.getElementById("pc");
+  }
+  consigne.className = "consigneVisible";
 }
 
 function restaurePrix() {
@@ -582,5 +602,6 @@ function dropTactile(ev) {
   dragObj.derY = 0;
 }
 
+selectionneConsigne();
 choixOptions();
 creeReserveMonnaie();
