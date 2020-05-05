@@ -76,12 +76,20 @@ function melange(tableau) {
   return tab_alea;
 }
 
-function getNomFichier(url) {
+/* function getNomFichier(url) {
   let nom = "";
   let tab = url.split('/');
   nom = tab[tab.length - 1];
   return nom;
 }
+ */
+
+ function getNomImg(id) {
+  let nom = "";
+  let tab = id.split('_');
+  nom = tab[0] + '_' + tab[1] + '.png';
+  return nom;
+ }
 
 function createTip(ev) {
   var title = this.title;
@@ -202,15 +210,18 @@ function creeReserveMonnaie() {
   let i = 0;
   let pieceBillet =  [];
   for (i=0; i<14; i++) {
-    pieceBillet[i] = new Image();
+    // pieceBillet[i] = new Image();
+    pieceBillet[i] = document.createElement("div");
     pieceBillet[i].className = "draggable";
+    pieceBillet[i].setAttribute('draggable','true');
     pieceBillet[i].addEventListener('touchstart',appuiTactile);
     pieceBillet[i].addEventListener('touchmove',dragTactile);
     pieceBillet[i].addEventListener('touchend',dropTactile);
     pieceBillet[i].addEventListener("dragstart", drag);
     pieceBillet[i].addEventListener('mouseover', createTip);
     pieceBillet[i].addEventListener('mouseout', cancelTip);
-    pieceBillet[i].src = monnaie[i].image;
+    // pieceBillet[i].src = monnaie[i].image;
+    pieceBillet[i].style.backgroundImage = 'url("' + monnaie[i].image + '")';
     pieceBillet[i].id = monnaie[i].id;
     pieceBillet[i].title = monnaie[i].titre;
     pieceBillet[i].style.maxHeight = monnaie[i].hauteur;
@@ -505,26 +516,25 @@ function supprimeValeur(ev) {
 
 function appuiTactile(ev) {
   let obj = ev.currentTarget;
-  let nomImage = ""
+  let nomImg = ""
   // let url = "";
   let touchPosition = ev.targetTouches[0];
   let parent = ev.currentTarget.parentNode;
-  ev.preventDefault();
+  // ev.preventDefault();
   dragObj.dragImg = document.createElement("div");
-  nomImage = getNomFichier(ev.target.src);
-  dragObj.dragImg.style.backgroundImage = 'url("img/' + nomImage + '")';
+  nomImg = getNomImg(ev.target.id);
+  dragObj.dragImg.style.backgroundImage = 'url("img/' + nomImg + '")';
   dragObj.idSource = ev.target.id;
   dragObj.dragImg.style.position = "absolute";
-  dragObj.dragImg.style.width = dragImages[nomImage].largeur;
-  dragObj.dragImg.style.height = dragImages[nomImage].hauteur;
+  dragObj.dragImg.style.width = dragImages[nomImg].largeur + "px";
+  dragObj.dragImg.style.height = dragImages[nomImg].hauteur + "px";
   // Position du doigt relativement aux bords de l'image
-  dragObj.decX = touchPosition.pageX - obj.offsetLeft;
-  dragObj.decY = touchPosition.pageY - obj.offsetTop;
-  dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
-  dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px';
+  dragObj.dragImg.style.left = touchPosition.pageX - dragImages[nomImg].largeur / 2 + 'px';
+  dragObj.dragImg.style.top = touchPosition.pageY - dragImages[nomImg].hauteur / 2 + 'px';
   // Mémorise la dernière position de l'image avant d'être relâchée
   dragObj.derX = touchPosition.pageX;
   dragObj.derY = touchPosition.pageY;
+  // ev.preventDefault();
   if (parent.id === "reserve") {
     reserve.appendChild(dragObj.dragImg);
     return;
@@ -542,10 +552,12 @@ function allowDrop(ev) {
 
 function drag(ev) {
   let infosObjet;
+  let nomImg = "";
   let img = new Image();
-  img.src = ev.target.src;
-  const offsetX = ev.target.clientWidth;
-  const offsetY = ev.target.clientHeight;
+  nomImg = getNomImg(ev.target.id);
+  img.src = "img/" + nomImg;
+  const offsetX = dragImages[nomImg].largeur / 2;
+  const offsetY = dragImages[nomImg].hauteur / 2;
   infosObjet = ev.target.id + "-" + ev.target.parentNode.id;
   ev.dataTransfer.setDragImage(img, offsetX, offsetY);
   ev.dataTransfer.setData("text", infosObjet);
@@ -553,12 +565,15 @@ function drag(ev) {
 
 function dragTactile(ev) {
   let touchPosition = ev.targetTouches[0];
-  ev.preventDefault();
+  let nomImg = getNomImg(ev.target.id);
+  // ev.preventDefault();
   if (! dragObj.dragImg) {
     return;
   }
-  dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
-  dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px';
+/*   dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
+  dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px'; */
+  dragObj.dragImg.style.left = touchPosition.pageX - dragImages[nomImg].largeur / 2 + 'px';
+  dragObj.dragImg.style.top = touchPosition.pageY - dragImages[nomImg].hauteur / 2 + 'px';
   // Mémorise la dernière position de l'image avant d'être relâchée
   dragObj.derX = touchPosition.pageX;
   dragObj.derY = touchPosition.pageY;
@@ -575,7 +590,7 @@ function drop(ev) {
 
 function dropTactile(ev) {
   let parent = ev.currentTarget.parentNode;
-  ev.preventDefault();
+  // ev.preventDefault();
   if ((parent.id !== "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
     const objet = document.getElementById(dragObj.idSource);
     depotComptoir(objet);
@@ -585,9 +600,9 @@ function dropTactile(ev) {
     receptacle.removeChild(dragObj.dragImg);
     effaceValeur(ev);
   }
-  if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
+  /* if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
     reserve.removeChild(dragObj.dragImg);
-  }
+  } */
   if ((parent.id === "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
     receptacle.removeChild(dragObj.dragImg);
     verifieAppuiLong(ev);
