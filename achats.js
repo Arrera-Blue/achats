@@ -41,6 +41,8 @@ const dragObj = {
 const reserve =  document.getElementById("reserve");
 const zoneObjets =  document.getElementById("zone-objets");
 const receptacle = document.getElementById("receptacle");
+const ecranBlanc = document.getElementById("ecran-blanc");
+const choixNiveau = document.getElementById("choix-niveau");
 receptacle.addEventListener("contextmenu",function(e){e.preventDefault();});
 const btVerif = document.getElementById("btverifier");
 const btOptions = document.getElementById("btoptions");
@@ -311,8 +313,8 @@ function defSerie() {
   paramExercice.ordreObjets = melange(tableau);
   paramExercice.ctObjets = 0;
   afficheObjet();
-  document.getElementById("btverifier").disabled = false;
-  document.getElementById("btoptions").disabled = true;
+  btVerif.disabled = false;
+  btOptions.disabled = true;
   desactiveBtSeries();
   // commencer();
 }
@@ -330,8 +332,8 @@ function survol(objet,posX,posY) {
 }
 
 function choixOptions() {
-  document.getElementById("choix-niveau").className = "visible";
-  document.getElementById("ecran-blanc").classList.replace("invisible","visible");
+  choixNiveau.className = "visible";
+  ecranBlanc.classList.replace("invisible","visible");
 }
 
 function lanceExercice(ev) {
@@ -360,8 +362,8 @@ function lanceExercice(ev) {
     }
   }
   creeBtSeries();
-  document.getElementById("choix-niveau").className = "invisible";
-  document.getElementById("ecran-blanc").classList.replace("visible","invisible");
+  choixNiveau.className = "invisible";
+  ecranBlanc.classList.replace("visible","invisible");
   ev.preventDefault();
 }
 
@@ -466,7 +468,7 @@ function verification() {
       }
       showDialog(message);
     }
-    document.getElementById("btverifier").disabled = false;
+    btVerif.disabled = false;
     return;
   }
   if (paramSeries.option === "option2") {
@@ -483,12 +485,12 @@ function verification() {
     showDialog('Bravo !',0.5,'img/happy-tux.png', 89, 91, 'left');
     paramExercice.ctObjets += 1;
     afficheObjet();
-    document.getElementById("btverifier").disabled = false;
+    btVerif.disabled = false;
     }
     else {
       paramExercice.ctObjets = 0;
-      document.getElementById("btverifier").disabled = true;
-      document.getElementById("btoptions").disabled = false;
+      btVerif.disabled = true;
+      btOptions.disabled = false;
       paramSeries.seriesFaites[paramSeries.niveau].push(parseInt(paramSeries.numeroSerie));
       if (paramSeries.seriesFaites[paramSeries.niveau].length < paramSeries.nbSeries) {
         showDialog("<p>Félicitations !</p><p>Tu as correctement payé tous les objets de cette série.</p>",0.5,'img/trophee.png', 128, 128, 'left');
