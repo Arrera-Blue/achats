@@ -331,6 +331,7 @@ function survol(objet,posX,posY) {
 
 function choixOptions() {
   document.getElementById("choix-niveau").className = "visible";
+  document.getElementById("ecran-blanc").classList.replace("invisible","visible");
 }
 
 function lanceExercice(ev) {
@@ -360,6 +361,7 @@ function lanceExercice(ev) {
   }
   creeBtSeries();
   document.getElementById("choix-niveau").className = "invisible";
+  document.getElementById("ecran-blanc").classList.replace("visible","invisible");
   ev.preventDefault();
 }
 
