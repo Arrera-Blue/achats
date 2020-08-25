@@ -1,0 +1,12 @@
+achats (1.2.1) unstable; urgency=low
+
+  * Correction d'un nom de fichier image
+
+ --  Philippe Dpt35 <philippe.dpt35@yahoo.fr>  Mon, 20 Jul 2020 08:44:20 +0200
+
+
+achats (1.2) unstable; urgency=low
+
+  * Prise en charge du drag et drop tactile
+
+ --  Philippe Dpt35 <philippe.dpt35@yahoo.fr>  Fri, 08 May 2020 12:36:07 +0200

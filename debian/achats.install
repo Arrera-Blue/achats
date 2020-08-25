@@ -1,0 +1,13 @@
+fonts/* /var/www/achats/fonts
+img/* /var/www/achats/img
+achats.css /var/www/achats
+achats.js /var/www/achats
+dialogbox.css /var/www/achats
+dialogbox.js /var/www/achats
+donnees.js /var/www/achats
+index.html /var/www/achats
+normalize.css /var/www/achats
+standard.css /var/www/achats
+achats.png /usr/share/pixmaps
+debian/achats.desktop /usr/share/applications
+debian/achat /usr/bin

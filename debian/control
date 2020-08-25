@@ -1,0 +1,18 @@
+Source: achats
+Section: education
+Priority: optional
+Maintainer: Philippe Ronflette <philippe.dpt35@yahoo.fr>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 4.1.3
+Homepage: https://framagit.org/philippe-dpt35/achats
+
+Package: achats
+Version: 1.2.1
+Architecture: all
+Priority: optional
+Depends: firefox | firefox-esr,
+Description: Payer en numéraire le prix d'un objet
+ Adapation du jeu "Achats" de la compilation 
+ d'applications Clicmenu. En déplaçant pièces et 
+ billets en euros, il faut payer le montant du 
+ prix d'un objet.

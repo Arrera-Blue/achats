@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=Achats
+Comment=Acheter des objets en payant le montant du prix indiqué en numéraire
+Exec=achat
+Icon=/usr/share/pixmaps/achats.png
+Terminal=false
+Type=Application
+Categories=Education;
+Keywords=education;math
+Name[fr_FR]=Achats
