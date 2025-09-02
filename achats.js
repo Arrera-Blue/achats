@@ -78,14 +78,6 @@ function melange(tableau) {
   return tab_alea;
 }
 
-/* function getNomFichier(url) {
-  let nom = "";
-  let tab = url.split('/');
-  nom = tab[tab.length - 1];
-  return nom;
-}
- */
-
  function getNomImg(id) {
   let nom = "";
   let tab = id.split('_');
@@ -212,7 +204,6 @@ function creeReserveMonnaie() {
   let i = 0;
   let pieceBillet =  [];
   for (i=0; i<14; i++) {
-    // pieceBillet[i] = new Image();
     pieceBillet[i] = document.createElement("div");
     pieceBillet[i].className = "draggable";
     pieceBillet[i].setAttribute('draggable','true');
@@ -222,7 +213,6 @@ function creeReserveMonnaie() {
     pieceBillet[i].addEventListener("dragstart", drag);
     pieceBillet[i].addEventListener('mouseover', createTip);
     pieceBillet[i].addEventListener('mouseout', cancelTip);
-    // pieceBillet[i].src = monnaie[i].image;
     pieceBillet[i].style.backgroundImage = 'url("' + monnaie[i].image + '")';
     pieceBillet[i].id = monnaie[i].id;
     pieceBillet[i].title = monnaie[i].titre;
@@ -409,11 +399,9 @@ function depotComptoir(objet) {
   nodeCopy.id = objet.id + "_" + paramReceptacle.ctId;
   calculeSomme(objet.id,"ajout");
   paramReceptacle.ctId += 1;
-  // nodeCopy.addEventListener("touchstart", debutTactile);
   nodeCopy.addEventListener('touchstart',appuiTactile);
   nodeCopy.addEventListener('touchmove',dragTactile);
   nodeCopy.addEventListener('touchend',dropTactile);
-  // nodeCopy.addEventListener("touchend", finTactile);
   nodeCopy.addEventListener('mouseover', createTip);
   nodeCopy.addEventListener('mouseout', cancelTip);
   nodeCopy.addEventListener("mouseup", supprimeValeur);
@@ -421,7 +409,6 @@ function depotComptoir(objet) {
 }
 
 function effaceValeur(ev) {
-  // if (ev.which==3) {
     let infosObjet;
     infosObjet = ev.target.id;
     calculeSomme(infosObjet,"retrait");
@@ -430,7 +417,6 @@ function effaceValeur(ev) {
       document.querySelector(".tooltip").remove();
     }
     objetCible.parentNode.removeChild(objetCible);
-  // }
 }
 
 function calculeSomme(idObjet,operation) {
@@ -521,10 +507,8 @@ function supprimeValeur(ev) {
 function appuiTactile(ev) {
   let obj = ev.currentTarget;
   let nomImg = ""
-  // let url = "";
   let touchPosition = ev.targetTouches[0];
   let parent = ev.currentTarget.parentNode;
-  // ev.preventDefault();
   dragObj.dragImg = document.createElement("div");
   nomImg = getNomImg(ev.target.id);
   dragObj.dragImg.style.backgroundImage = 'url("img/' + nomImg + '")';
@@ -538,7 +522,6 @@ function appuiTactile(ev) {
   // Mémorise la dernière position de l'image avant d'être relâchée
   dragObj.derX = touchPosition.pageX;
   dragObj.derY = touchPosition.pageY;
-  // ev.preventDefault();
   if (parent.id === "reserve") {
     reserve.appendChild(dragObj.dragImg);
     return;
@@ -570,12 +553,9 @@ function drag(ev) {
 function dragTactile(ev) {
   let touchPosition = ev.targetTouches[0];
   let nomImg = getNomImg(ev.target.id);
-  // ev.preventDefault();
   if (! dragObj.dragImg) {
     return;
   }
-/*   dragObj.dragImg.style.left = touchPosition.pageX - dragObj.decX * dragObj.zoom + 'px';
-  dragObj.dragImg.style.top = touchPosition.pageY - dragObj.decY * dragObj.zoom + 'px'; */
   dragObj.dragImg.style.left = touchPosition.pageX - dragImages[nomImg].largeur / 2 + 'px';
   dragObj.dragImg.style.top = touchPosition.pageY - dragImages[nomImg].hauteur / 2 + 'px';
   // Mémorise la dernière position de l'image avant d'être relâchée
@@ -604,9 +584,6 @@ function dropTactile(ev) {
     receptacle.removeChild(dragObj.dragImg);
     effaceValeur(ev);
   }
-  /* if ((parent.id === "reserve") && (survol(reserve,dragObj.derX,dragObj.derY))) {
-    reserve.removeChild(dragObj.dragImg);
-  } */
   if ((parent.id === "receptacle") && (survol(receptacle,dragObj.derX,dragObj.derY))) {
     receptacle.removeChild(dragObj.dragImg);
     verifieAppuiLong(ev);

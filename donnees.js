@@ -16,22 +16,6 @@ const monnaie = [
   {image: "img/100_euros.png", id: "100_euros", hauteur: "104px", largeur: "190px", titre: "100 euros"},
   {image: "img/200_euros.png", id: "200_euros", hauteur: "100px", largeur: "190px", titre: "200 euros"},
 ];
-/* const monnaie = [
-  {image: "img/1_centime.png", id: "1_centime", hauteur: "30px", largeur: "30px", titre: "1 centime"},
-  {image: "img/2_centimes.png", id: "2_centimes", hauteur: "35px", largeur: "35px", titre: "2 centimes"},
-  {image: "img/5_centimes.png", id: "5_centimes", hauteur: "39px", largeur: "39px", titre: "5 centimes"},
-  {image: "img/10_centimes.png", id: "10_centimes", hauteur: "34px", largeur: "34px", titre: "10 centimes"},
-  {image: "img/20_centimes.png", id: "20_centimes", hauteur: "42px", largeur: "42px", titre: "20 centimes"},
-  {image: "img/50_centimes.png", id: "50_centimes", hauteur: "45px", largeur: "45px", titre: "50 centimes"},
-  {image: "img/1_euro.png", id: "1_euro", hauteur: "43px", largeur: "43px", titre: "1 euro"},
-  {image: "img/2_euros.png", id: "2_euros", hauteur: "48px", largeur: "48px", titre: "2 euros"},
-  {image: "img/5_euros.png", id: "5_euros", hauteur: "92px", largeur: "180px", titre: "5 euros"},
-  {image: "img/10_euros.png", id: "10_euros", hauteur: "93px", largeur: "180px", titre: "10 euros"},
-  {image: "img/20_euros.png", id: "20_euros", hauteur: "93px", largeur: "172px", titre: "20 euros"},
-  {image: "img/50_euros.png", id: "50_euros", hauteur: "97px", largeur: "177px", titre: "50 euros"},
-  {image: "img/100_euros.png", id: "100_euros", hauteur: "94px", largeur: "180px", titre: "100 euros"},
-  {image: "img/200_euros.png", id: "200_euros", hauteur: "90px", largeur: "180px", titre: "200 euros"},
-]; */
 
 const dragImages = {
   "1_centime.png": {largeur: 122, hauteur: 121},
@@ -49,22 +33,6 @@ const dragImages = {
   "100_euros.png": {largeur: 360, hauteur: 188},
   "200_euros.png": {largeur: 360, hauteur: 179},
 };
-/* const dragImages = {
-  "1_centime": {url:"url('img/1ct.png')", largeur: "122px", hauteur: "121px"},
-  "2_centimes": {url:"url('img/2ct.png')", largeur: "138px", hauteur: "139px"},
-  "5_centimes": {url:"url('img/5ct.png')", largeur: "157px", hauteur: "157px"},
-  "10_centimes": {url:"url('img/10ct.png')", largeur: "147px", hauteur: "148px"},
-  "20_centimes": {src:"url('img/20ct.png')", largeur: "166px", hauteur: "167px"},
-  "50_centimes": {url:"url('img/50ct.png')", largeur: "181px", hauteur: "181px"},
-  "1_euro": {url:"url('img/1euro.png')", largeur: "174px", hauteur: "174px"},
-  "2_euros": {src:"url('img/2euro.png')", largeur: "192px", hauteur: "192px"},
-  "5_euros": {url:"url('img/5euro.png')", largeur: "360px", hauteur: "184px"},
-  "10_euros": {url:"url('img/10euro.png')", largeur: "360px", hauteur: "187px"},
-  "20_euros": {url:"url('img/20euro.png')", largeur: "345px", hauteur: "187px"},
-  "50_euros": {url:"url('img/50euro.png')", largeur: "355px", hauteur: "194px"},
-  "100_euros": {url:"url('img/100euro.png')", largeur: "360px", hauteur: "188px"},
-  "200_euros": {url:"url('img/200euro.png')", largeur: "360px", hauteur: "179px"},
-}; */
 
 const paiements = [20000, 10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1];
 
@@ -123,6 +91,4 @@ const objets = [
     ]
   ]
 ]
-// {nom: "un paquet de toasts", image: "img/toasts.png", prix: 89, affichage: "0,89 €", imgWidth: "200px", imgHeight: "245px"},
-// {nom: "un timbre lettre verte", image: "img/timbre.png", prix: 88, affichage: "88 cts", imgWidth: "102px", imgHeight: "132px"},
-// {nom: "un sac à colorier", image: "img/sac-colorier.png", prix: 56, affichage: "56 cts", imgWidth: "132px", imgHeight: "179px"},
+
