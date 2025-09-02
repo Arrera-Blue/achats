@@ -291,28 +291,9 @@ body {
   left:5px;
 }
 
-@media screen and (max-aspect-ratio: 14/11)  {
-  .div-texte {
-    top: 56%;
-  }
-}
-@media screen and (max-aspect-ratio: 34/43)  {
-  .div-texte {
-    top: 54%;
-  }
-}
-@media screen and (min-aspect-ratio: 13/6)  {
-  .div-texte {
-    font-size: 3vmin;
-    height: 4vmin;
-  }
-}
 @media screen and (min-aspect-ratio: 23/6)  {
   #consigne {
     display: none;
-  }
-  #locomotive {
-    width: 10.3%;
   }
   .draggable {
     width: 8%;
