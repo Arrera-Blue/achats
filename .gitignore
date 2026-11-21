@@ -1,0 +1,3 @@
+rpmbuild/
+*.tar.gz
+*.rpm

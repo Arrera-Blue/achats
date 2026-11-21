@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.0
+Name=Achats
+Comment=Payer en numéraire le prix d'un objet
+Exec=achats file:///usr/share/achats/index.html
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=achats
+Categories=GTK;Education;Math;
+MimeType=text/html;text/xml;application/xhtml_xml;
+StartupWMClass=WebApp-achats
+StartupNotify=true
+X-WebApp-Browser=Firefox
+X-WebApp-URL=file:///usr/share/achats/index.html
+X-WebApp-Isolated=true
